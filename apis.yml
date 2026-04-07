@@ -1,8 +1,8 @@
 aid: scispot
 name: Scispot
 description: >-
-  Join 1000s of labs that use Scispot to centralize andactivate their data - and
-  supercharge their workflows. 
+  Join 1000s of labs that use Scispot to centralize andactivate their data - and supercharge
+  their workflows.
 type: Index
 position: Consumer
 access: 3rd-Party
@@ -18,8 +18,8 @@ apis:
   - aid: scispot:scispot
     name: Scispot
     description: >-
-      Join 1000s of labs that use Scispot to centralize andactivate their data -
-      and supercharge their workflows. 
+      Join 1000s of labs that use Scispot to centralize andactivate their data - and
+      supercharge their workflows.
     humanURL: ' https://www.scispot.com/'
     tags:
       - API
