@@ -1,0 +1,79 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "scispot": "https://www.scispot.com/ontology/",
+    "sio": "http://semanticscience.org/resource/",
+    "obo": "http://purl.obolibrary.org/obo/",
+
+    "Labsheet": "scispot:Labsheet",
+    "LabsheetRow": "scispot:LabsheetRow",
+    "ElectronicLabNotebook": "scispot:ELN",
+    "NotebookEntry": "scispot:NotebookEntry",
+    "Manifest": "scispot:Manifest",
+    "Sequence": "scispot:Sequence",
+    "Sample": "sio:SIO_000123",
+    "Experiment": "sio:SIO_000070",
+
+    "labsheetId": "schema:identifier",
+    "name": "schema:name",
+    "description": "schema:description",
+    "barcode": "schema:identifier",
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "schema:DateTime"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "schema:DateTime"
+    },
+
+    "columns": "scispot:hasColumn",
+    "column": "scispot:Column",
+    "columnType": "scispot:columnDataType",
+    "columnRequired": "scispot:required",
+
+    "rows": "scispot:hasRow",
+    "rowData": "scispot:rowData",
+    "rowCount": "schema:numberOfItems",
+
+    "sequenceType": "obo:SO_0000001",
+    "dnSequence": "obo:SO_0000352",
+    "rnaSequence": "obo:SO_0000233",
+    "proteinSequence": "obo:SO_0001217",
+    "sequenceString": "sio:SIO_000030",
+    "sequenceLength": "sio:SIO_000041",
+    "annotation": "sio:SIO_000642",
+    "annotationType": "sio:SIO_000098",
+    "annotationStart": "sio:SIO_000943",
+    "annotationEnd": "sio:SIO_000944",
+    "strand": "obo:SO_0000699",
+
+    "notebook": "scispot:Notebook",
+    "notebookEntry": "scispot:NotebookEntry",
+    "entryType": "scispot:entryType",
+    "experiment": "sio:SIO_000070",
+    "protocol": "sio:SIO_000701",
+    "observation": "sio:SIO_000111",
+
+    "manifest": "scispot:Manifest",
+    "manifestType": "scispot:containerType",
+    "plate": "obo:OBI_0000929",
+    "box": "scispot:StorageBox",
+    "rack": "scispot:StorageRack",
+    "dimensions": "schema:size",
+    "containerRows": "scispot:rows",
+    "containerColumns": "scispot:columns",
+
+    "apiKey": "schema:accessCode",
+    "workspace": "schema:Organization",
+
+    "fhirObservation": "https://www.hl7.org/fhir/observation.html",
+    "hl7MessageType": "scispot:hl7MessageType",
+    "astmProtocol": "scispot:astmProtocol",
+
+    "labType": "scispot:labType",
+    "biotechLab": "scispot:BiotechLab",
+    "clinicalLab": "scispot:ClinicalLab",
+    "researchLab": "scispot:ResearchLab"
+  }
+}

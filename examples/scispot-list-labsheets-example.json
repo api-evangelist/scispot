@@ -1,0 +1,56 @@
+{
+  "description": "Example response from GET /v1/labsheets",
+  "request": {
+    "method": "GET",
+    "url": "https://api.scispot.com/v1/labsheets",
+    "headers": {
+      "apiKey": "your-api-token-here"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "ls_01HXKP7QWERTY123",
+          "name": "Sample Registry",
+          "description": "Primary sample registration and tracking labsheet",
+          "columns": [
+            {"name": "Sample ID", "type": "text", "required": true},
+            {"name": "Barcode", "type": "barcode", "required": true},
+            {"name": "Sample Type", "type": "text", "required": true},
+            {"name": "Collection Date", "type": "date", "required": true},
+            {"name": "Source", "type": "text", "required": false},
+            {"name": "Concentration (mg/mL)", "type": "number", "required": false},
+            {"name": "Volume (µL)", "type": "number", "required": false},
+            {"name": "Storage Location", "type": "lookup", "required": false},
+            {"name": "Notes", "type": "text", "required": false}
+          ],
+          "rowCount": 1456,
+          "createdAt": "2025-01-15T09:00:00Z",
+          "updatedAt": "2026-04-28T14:32:17Z"
+        },
+        {
+          "id": "ls_02HXKP7QWERTY456",
+          "name": "Assay Results",
+          "description": "PCR and sequencing assay results",
+          "columns": [
+            {"name": "Sample ID", "type": "lookup", "required": true},
+            {"name": "Assay Type", "type": "text", "required": true},
+            {"name": "Run Date", "type": "date", "required": true},
+            {"name": "Result", "type": "text", "required": false},
+            {"name": "CT Value", "type": "number", "required": false},
+            {"name": "Pass/Fail", "type": "text", "required": false},
+            {"name": "Operator", "type": "text", "required": true}
+          ],
+          "rowCount": 892,
+          "createdAt": "2025-01-15T09:30:00Z",
+          "updatedAt": "2026-04-30T11:15:43Z"
+        }
+      ],
+      "total": 12,
+      "page": 1,
+      "limit": 20
+    }
+  }
+}

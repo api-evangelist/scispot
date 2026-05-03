@@ -1,0 +1,55 @@
+{
+  "title": "Scispot Labsheet Structure",
+  "description": "Structural documentation for Scispot Labsheet resources - LIMS-style structured data tables",
+  "baseUrl": "https://api.scispot.com/v1",
+  "endpoints": [
+    {"path": "/labsheets", "method": "GET", "description": "List all labsheets"},
+    {"path": "/labsheets/{labsheetId}/rows", "method": "GET", "description": "List rows"},
+    {"path": "/labsheets/{labsheetId}/rows", "method": "POST", "description": "Add row"},
+    {"path": "/labsheets/{labsheetId}/rows/{rowId}", "method": "GET", "description": "Get row"},
+    {"path": "/labsheets/{labsheetId}/rows/{rowId}", "method": "PUT", "description": "Update row"},
+    {"path": "/labsheets/{labsheetId}/rows/{rowId}", "method": "DELETE", "description": "Delete row"}
+  ],
+  "authentication": {
+    "type": "apiKey",
+    "headerName": "apiKey",
+    "description": "Personal API token from Account Settings > Personal Tokens"
+  },
+  "structure": {
+    "type": "object",
+    "description": "Labsheet resource",
+    "fields": [
+      {"name": "id", "type": "string", "required": true, "description": "Unique labsheet ID"},
+      {"name": "name", "type": "string", "required": true, "description": "Labsheet name"},
+      {"name": "description", "type": "string", "required": false, "description": "Purpose description"},
+      {
+        "name": "columns",
+        "type": "array",
+        "required": true,
+        "description": "Column schema definitions",
+        "itemStructure": {
+          "fields": [
+            {"name": "name", "type": "string", "required": true, "description": "Column name"},
+            {"name": "type", "type": "string (enum)", "required": true, "description": "text | number | date | barcode | lookup | file | formula"},
+            {"name": "required", "type": "boolean", "required": false, "description": "Is value required"}
+          ]
+        }
+      },
+      {"name": "rowCount", "type": "integer", "description": "Total number of rows"},
+      {"name": "createdAt", "type": "string (date-time)", "description": "Creation timestamp"},
+      {"name": "updatedAt", "type": "string (date-time)", "description": "Last modified timestamp"}
+    ]
+  },
+  "rowStructure": {
+    "type": "object",
+    "description": "Labsheet row resource",
+    "fields": [
+      {"name": "id", "type": "string", "required": true, "description": "Unique row ID"},
+      {"name": "labsheetId", "type": "string", "required": true, "description": "Parent labsheet ID"},
+      {"name": "barcode", "type": "string", "required": false, "description": "Optional barcode"},
+      {"name": "data", "type": "object (key-value)", "required": true, "description": "Column values as key-value pairs matching column definitions"},
+      {"name": "createdAt", "type": "string (date-time)"},
+      {"name": "updatedAt", "type": "string (date-time)"}
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "description": "Example of adding a new row to a Labsheet via POST /v1/labsheets/{labsheetId}/rows",
+  "request": {
+    "method": "POST",
+    "url": "https://api.scispot.com/v1/labsheets/ls_01HXKP7QWERTY123/rows",
+    "headers": {
+      "apiKey": "your-api-token-here",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "barcode": "SMP-2026-2847",
+      "data": {
+        "Sample ID": "SMP-2026-2847",
+        "Barcode": "SMP-2026-2847",
+        "Sample Type": "Blood Serum",
+        "Collection Date": "2026-05-02",
+        "Source": "Patient XR-4421",
+        "Concentration (mg/mL)": 2.4,
+        "Volume (µL)": 500,
+        "Storage Location": "Freezer-A / Box-12 / Position-B3",
+        "Notes": "Collected at 09:15, processed within 2 hours"
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "row_7HXKP7QWERTY789",
+      "labsheetId": "ls_01HXKP7QWERTY123",
+      "barcode": "SMP-2026-2847",
+      "data": {
+        "Sample ID": "SMP-2026-2847",
+        "Barcode": "SMP-2026-2847",
+        "Sample Type": "Blood Serum",
+        "Collection Date": "2026-05-02",
+        "Source": "Patient XR-4421",
+        "Concentration (mg/mL)": 2.4,
+        "Volume (µL)": 500,
+        "Storage Location": "Freezer-A / Box-12 / Position-B3",
+        "Notes": "Collected at 09:15, processed within 2 hours"
+      },
+      "createdAt": "2026-05-02T09:22:33Z",
+      "updatedAt": "2026-05-02T09:22:33Z"
+    }
+  }
+}

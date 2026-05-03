@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/scispot/main/json-schema/scispot-sequence-schema.json",
+  "title": "Scispot Biological Sequence",
+  "description": "A biological sequence (DNA, RNA, protein, or chemical structure) managed in the Scispot platform",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique sequence identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Sequence name or identifier used in the lab",
+      "examples": ["BRCA1-exon10", "pUC19", "Insulin-Human"]
+    },
+    "type": {
+      "type": "string",
+      "enum": ["dna", "rna", "protein", "chemical"],
+      "description": "Biological sequence type"
+    },
+    "sequence": {
+      "type": "string",
+      "description": "Raw sequence string using standard notation (IUPAC for nucleotides, single-letter codes for amino acids)",
+      "examples": ["ATGCATGCATGC", "AUGCAUGCAUGC", "MVLSPADKTNVK"]
+    },
+    "length": {
+      "type": "integer",
+      "description": "Sequence length in base pairs or amino acid residues",
+      "minimum": 1
+    },
+    "annotations": {
+      "type": "array",
+      "description": "Sequence features and annotations",
+      "items": {
+        "$ref": "#/$defs/SequenceAnnotation"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata fields as key-value pairs",
+      "additionalProperties": true
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["id", "name", "type", "sequence"],
+  "$defs": {
+    "SequenceAnnotation": {
+      "type": "object",
+      "description": "A feature or annotation on a biological sequence",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Feature name (e.g., exon, promoter, CDS)"
+        },
+        "start": {
+          "type": "integer",
+          "description": "Start position (1-indexed)",
+          "minimum": 1
+        },
+        "end": {
+          "type": "integer",
+          "description": "End position (1-indexed)",
+          "minimum": 1
+        },
+        "type": {
+          "type": "string",
+          "description": "Feature type (e.g., exon, intron, CDS, promoter, protein_binding)"
+        },
+        "strand": {
+          "type": "string",
+          "enum": ["forward", "reverse"],
+          "description": "Strand orientation (for nucleotide sequences)"
+        },
+        "color": {
+          "type": "string",
+          "description": "Display color for visualization"
+        }
+      },
+      "required": ["name", "start", "end", "type"]
+    }
+  }
+}

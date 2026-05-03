@@ -1,0 +1,146 @@
+extends: spectral:oas
+rules:
+  # Scispot API Conventions
+
+  # Enforce API key authentication is defined
+  scispot-apikey-auth-defined:
+    description: Scispot API must use API key authentication via apiKey header
+    message: Security scheme must define apiKey authentication in the header
+    severity: error
+    given: $.components.securitySchemes.*.type
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - apiKey
+
+  # Enforce operation IDs use camelCase
+  scispot-operation-id-camel-case:
+    description: Operation IDs must use camelCase naming convention
+    message: Operation ID {{value}} must use camelCase
+    severity: warn
+    given: $.paths.*.*.operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  # Enforce paths use kebab-case
+  scispot-path-kebab-case:
+    description: API paths must use kebab-case segments
+    message: Path must use kebab-case
+    severity: warn
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(\\/[a-z0-9-{}]+)+$"
+
+  # Enforce CRUD endpoints return 201 for creation
+  scispot-post-returns-201:
+    description: POST endpoints that create resources must return 201 Created
+    message: POST endpoint at {{path}} must include a 201 response for successful creation
+    severity: warn
+    given: $.paths.*.post.responses
+    then:
+      field: "201"
+      function: defined
+
+  # Enforce DELETE returns 204 No Content
+  scispot-delete-returns-204:
+    description: DELETE endpoints must return 204 No Content on success
+    message: DELETE endpoint at {{path}} must include a 204 response
+    severity: warn
+    given: $.paths.*.delete.responses
+    then:
+      field: "204"
+      function: defined
+
+  # Enforce 401 response on authenticated endpoints
+  scispot-auth-401-response:
+    description: All authenticated endpoints must define a 401 Unauthorized response
+    message: Endpoint at {{path}} must include a 401 response for authentication failures
+    severity: warn
+    given: $.paths.*.*.responses
+    then:
+      field: "401"
+      function: defined
+
+  # Enforce 404 response for single-resource GET endpoints
+  scispot-single-resource-404:
+    description: Single-resource retrieval endpoints must define 404 response
+    message: Single-resource GET at {{path}} must include a 404 response
+    severity: warn
+    given: $.paths[*][?(@property == 'get')].responses
+    then:
+      field: "404"
+      function: defined
+
+  # Enforce request body for POST and PUT
+  scispot-post-put-require-body:
+    description: POST and PUT endpoints must define a request body
+    message: POST/PUT endpoint at {{path}} must include a requestBody
+    severity: error
+    given: $.paths.*[post,put]
+    then:
+      field: requestBody
+      function: truthy
+
+  # Require descriptions on all operations
+  scispot-operation-description:
+    description: All operations must have a description
+    message: Operation at {{path}} must have a description
+    severity: warn
+    given: $.paths.*.*
+    then:
+      field: description
+      function: truthy
+
+  # Require tags on all operations
+  scispot-operation-tags:
+    description: All operations must be tagged
+    message: Operation at {{path}} must include at least one tag
+    severity: warn
+    given: $.paths.*.*
+    then:
+      field: tags
+      function: truthy
+
+  # Enforce pagination parameters on list endpoints
+  scispot-list-pagination-params:
+    description: List endpoints should support page and limit pagination parameters
+    message: List endpoint should support page and limit query parameters
+    severity: info
+    given: $.paths.*.get.parameters[*].name
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - page
+          - limit
+          - type
+          - barcode
+          - sampleId
+          - notebookId
+          - labsheetId
+
+  # Enforce version prefix in server URL
+  scispot-server-versioned:
+    description: Server URL must include API version prefix
+    message: Server URL must include version prefix (e.g., /v1)
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: ".*\\/v[0-9]+$"
+
+  # Enforce component schemas are reused
+  scispot-use-component-schemas:
+    description: Response bodies should reference component schemas rather than inline definitions
+    message: Use $ref to component schemas for consistency
+    severity: info
+    given: $.paths.*.*.responses.*.content.*.schema
+    then:
+      field: "$ref"
+      function: defined

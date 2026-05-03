@@ -1,0 +1,165 @@
+vocabulary:
+  name: Scispot Laboratory Platform Vocabulary
+  description: >-
+    Domain vocabulary for Scispot covering laboratory data management, LIMS/ELN
+    concepts, life science research terminology, computational biology, and
+    instrument integration terminology.
+  created: '2026-05-02'
+  modified: '2026-05-02'
+  terms:
+    - term: Labsheet
+      definition: >-
+        Scispot's primary LIMS data structure — a structured data table with defined
+        columns used for sample registries, assay results, inventory tracking, and
+        any tabular lab data. Each labsheet has a schema (columns) and rows of data.
+      tags:
+        - Core Concept
+        - LIMS
+      related:
+        - Row
+        - Column
+        - Registry
+
+    - term: Electronic Lab Notebook (ELN)
+      definition: >-
+        A digital replacement for paper lab notebooks. In Scispot, ELN functionality
+        allows researchers to document experiments, protocols, and observations in
+        structured electronic entries linked to LIMS data.
+      abbreviation: ELN
+      tags:
+        - Core Concept
+        - Documentation
+
+    - term: Laboratory Information Management System (LIMS)
+      definition: >-
+        Software that manages laboratory samples, workflows, and data. Scispot's
+        Labsheets provide the LIMS layer, tracking samples from collection through
+        analysis and storage with barcodes and metadata.
+      abbreviation: LIMS
+      tags:
+        - Core Concept
+        - Data Management
+
+    - term: Manifest
+      definition: >-
+        A Scispot record representing a physical container used in the lab, such as
+        a 96-well plate, sample box, or storage rack. Manifests track what samples
+        are in what positions within a container.
+      tags:
+        - Core Concept
+        - Sample Management
+      subtypes:
+        - Plate
+        - Box
+        - Rack
+
+    - term: Barcode
+      definition: >-
+        A machine-readable identifier assigned to samples, containers, and labsheet rows
+        for physical tracking. Scispot supports barcode-based lookup via the
+        /results/search/{barcode} endpoint.
+      tags:
+        - Identification
+        - Tracking
+
+    - term: Sequence
+      definition: >-
+        A biological sequence (DNA, RNA, protein, or chemical structure) stored in
+        Scispot with annotations, metadata, and links to experimental records.
+        Supports IUPAC nucleotide notation and single-letter amino acid codes.
+      tags:
+        - Bioinformatics
+        - Core Concept
+
+    - term: GLUE
+      definition: >-
+        Scispot's protocol interpretation and data normalization layer that enables
+        integration with 7,000+ applications via Zapier and 250+ instrument connectors.
+        Provides a unified data model across disparate instrument output formats.
+      tags:
+        - Integration
+        - Technology
+
+    - term: Personal Token
+      definition: >-
+        A Scispot API authentication credential generated in Account Settings >
+        Personal Tokens. Passed as the apiKey header in all API requests with
+        role-based access control (RBAC) scoping.
+      tags:
+        - Authentication
+        - Security
+
+    - term: Role-Based Access Control (RBAC)
+      definition: >-
+        Scispot's access control model where API tokens are scoped to specific roles
+        and permissions within a workspace, limiting what data and operations each
+        token can access.
+      abbreviation: RBAC
+      tags:
+        - Security
+        - Access Control
+
+    - term: HL7 FHIR
+      definition: >-
+        Health Level 7 Fast Healthcare Interoperability Resources — a clinical data
+        standard supported by Scispot for exchanging laboratory observations and
+        results in healthcare settings.
+      abbreviation: FHIR
+      tags:
+        - Standards
+        - Healthcare
+        - Interoperability
+
+    - term: ASTM
+      definition: >-
+        American Society for Testing and Materials — Scispot supports ASTM LIS01/LIS02
+        and E1381 protocols for instrument data communication in clinical laboratories.
+      abbreviation: ASTM
+      tags:
+        - Standards
+        - Clinical
+
+    - term: Flat Schema
+      definition: >-
+        Scispot's uniform data structure design where all labsheets and sequences
+        follow a consistent, non-hierarchical schema, enabling simpler programmatic
+        access compared to traditional ELN/LIMS systems with nested or variable schemas.
+      tags:
+        - Data Model
+        - Design
+
+    - term: Instrument Connector
+      definition: >-
+        A pre-built integration that connects laboratory instruments (PCR machines,
+        plate readers, mass spectrometers, etc.) to Scispot. The platform includes
+        250+ instrument connectors for automatic data ingestion.
+      tags:
+        - Integration
+        - Instrumentation
+
+    - term: Computational Biology
+      definition: >-
+        The application of algorithms, mathematical models, and data analysis to
+        biological data. Scispot's API is specifically designed for comp bio workflows
+        including sequence analysis, large-scale data operations, and bioinformatics pipelines.
+      tags:
+        - Use Case
+        - Bioinformatics
+
+    - term: Workspace
+      definition: >-
+        The top-level organizational unit in Scispot, containing all labsheets,
+        notebooks, sequences, manifests, and user accounts for a lab or research group.
+        API keys are scoped to a specific workspace.
+      tags:
+        - Organization
+        - Core Concept
+
+    - term: Webhook
+      definition: >-
+        Event-driven HTTP callbacks supported by Scispot for real-time notifications
+        when events occur (orders created, instrument runs completed, results verified).
+        Enables event-driven automation without polling.
+      tags:
+        - Integration
+        - Events
