@@ -1,431 +1,728 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Scispot Lab Data Management"
-  description: >-
-    Unified capability for managing laboratory data across Scispot's LIMS,
-    ELN, sample tracking, sequence management, and container manifests.
-    Enables computational biologists, lab automation engineers, and data
-    scientists to programmatically access and manipulate all lab data
-    in one unified workflow interface with REST and MCP adapters.
+  label: Scispot Lab Data Management
+  description: Unified capability for managing laboratory data across Scispot's LIMS, ELN, sample tracking, sequence management,
+    and container manifests. Enables computational biologists, lab automation engineers, and data scientists to programmatically
+    access and manipulate all lab data in one unified workflow interface with REST and MCP adapters.
   tags:
-    - Laboratory
-    - LIMS
-    - ELN
-    - Life Science
-    - Biotech
-    - Samples
-    - Sequences
-    - Automation
-  created: "2026-05-02"
-  modified: "2026-05-02"
-
+  - Laboratory
+  - LIMS
+  - ELN
+  - Life Science
+  - Biotech
+  - Samples
+  - Sequences
+  - Automation
+  created: '2026-05-02'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      SCISPOT_API_KEY: SCISPOT_API_KEY
-
+- namespace: env
+  keys:
+    SCISPOT_API_KEY: SCISPOT_API_KEY
 capability:
   consumes:
-    - import: scispot
-      location: ./shared/scispot.yaml
-
+  - type: http
+    namespace: scispot
+    baseUri: https://api.scispot.com/v1
+    description: Scispot laboratory data platform API
+    authentication:
+      type: apikey
+      key: apiKey
+      value: '{{SCISPOT_API_KEY}}'
+      placement: header
+    resources:
+    - name: labsheets
+      path: /labsheets
+      description: List all labsheets in the workspace
+      operations:
+      - name: list-labsheets
+        method: GET
+        description: Retrieve all LIMS-style data tables
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: labsheet-rows
+      path: /labsheets/{labsheetId}/rows
+      description: Manage rows within a specific labsheet
+      operations:
+      - name: get-labsheet-rows
+        method: GET
+        description: Retrieve all rows from a labsheet
+        inputParameters:
+        - name: labsheetId
+          in: path
+          type: string
+          required: true
+          description: Labsheet identifier
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Rows per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: add-labsheet-row
+        method: POST
+        description: Add a new data row to a labsheet
+        inputParameters:
+        - name: labsheetId
+          in: path
+          type: string
+          required: true
+          description: Labsheet identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            barcode: '{{tools.barcode}}'
+            data: '{{tools.data}}'
+    - name: labsheet-row
+      path: /labsheets/{labsheetId}/rows/{rowId}
+      description: Manage a specific labsheet row
+      operations:
+      - name: get-labsheet-row
+        method: GET
+        description: Get a specific row by ID
+        inputParameters:
+        - name: labsheetId
+          in: path
+          type: string
+          required: true
+          description: Labsheet identifier
+        - name: rowId
+          in: path
+          type: string
+          required: true
+          description: Row identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-labsheet-row
+        method: PUT
+        description: Update an existing labsheet row
+        inputParameters:
+        - name: labsheetId
+          in: path
+          type: string
+          required: true
+          description: Labsheet identifier
+        - name: rowId
+          in: path
+          type: string
+          required: true
+          description: Row identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            data: '{{tools.data}}'
+      - name: delete-labsheet-row
+        method: DELETE
+        description: Delete a row from a labsheet
+        inputParameters:
+        - name: labsheetId
+          in: path
+          type: string
+          required: true
+          description: Labsheet identifier
+        - name: rowId
+          in: path
+          type: string
+          required: true
+          description: Row identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: barcode-search
+      path: /results/search/{barcode}
+      description: Search results by barcode
+      operations:
+      - name: search-by-barcode
+        method: GET
+        description: Find all records associated with a barcode
+        inputParameters:
+        - name: barcode
+          in: path
+          type: string
+          required: true
+          description: Barcode identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: eln-notebooks
+      path: /eln/notebooks
+      description: Manage ELN notebooks
+      operations:
+      - name: list-notebooks
+        method: GET
+        description: List all ELN notebooks
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: notebook-entries
+      path: /eln/notebooks/{notebookId}/entries
+      description: Manage entries within an ELN notebook
+      operations:
+      - name: list-notebook-entries
+        method: GET
+        description: List all entries in a notebook
+        inputParameters:
+        - name: notebookId
+          in: path
+          type: string
+          required: true
+          description: Notebook identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-notebook-entry
+        method: POST
+        description: Create a new notebook entry (experiment, protocol, or observation)
+        inputParameters:
+        - name: notebookId
+          in: path
+          type: string
+          required: true
+          description: Notebook identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            title: '{{tools.title}}'
+            type: '{{tools.entry_type}}'
+            content: '{{tools.content}}'
+    - name: manifests
+      path: /manifests
+      description: Manage physical container manifests
+      operations:
+      - name: list-manifests
+        method: GET
+        description: List all manifests (plates, boxes, racks)
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          required: false
+          description: Container type filter (plate, box, rack)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-manifest
+        method: POST
+        description: Create a new physical container manifest
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            type: '{{tools.container_type}}'
+            barcode: '{{tools.barcode}}'
+    - name: manifest-detail
+      path: /manifests/{manifestId}
+      description: Get a specific manifest by ID
+      operations:
+      - name: get-manifest
+        method: GET
+        description: Retrieve a single manifest with its contents
+        inputParameters:
+        - name: manifestId
+          in: path
+          type: string
+          required: true
+          description: Manifest identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sequences
+      path: /sequences
+      description: Manage biological sequences
+      operations:
+      - name: list-sequences
+        method: GET
+        description: List all biological sequences (DNA, RNA, protein, chemical)
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          required: false
+          description: Sequence type filter (dna, rna, protein, chemical)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-sequence
+        method: POST
+        description: Add a new biological sequence with annotations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            type: '{{tools.sequence_type}}'
+            sequence: '{{tools.sequence}}'
+    - name: sequence-detail
+      path: /sequences/{sequenceId}
+      description: Manage a specific sequence by ID
+      operations:
+      - name: get-sequence
+        method: GET
+        description: Retrieve a single sequence with annotations
+        inputParameters:
+        - name: sequenceId
+          in: path
+          type: string
+          required: true
+          description: Sequence identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-sequence
+        method: PUT
+        description: Update an existing biological sequence
+        inputParameters:
+        - name: sequenceId
+          in: path
+          type: string
+          required: true
+          description: Sequence identifier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            sequence: '{{tools.sequence}}'
   exposes:
-    - type: rest
-      port: 8080
-      namespace: scispot-lab-management-api
-      description: "Unified REST API for Scispot lab data management workflows."
-      resources:
-        - path: /v1/labsheets
-          name: labsheets
-          description: "LIMS labsheet management"
-          operations:
-            - method: GET
-              name: list-labsheets
-              description: "List all LIMS labsheets in the workspace"
-              call: "scispot.list-labsheets"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/labsheets/{labsheetId}/rows
-          name: labsheet-rows
-          description: "Labsheet row data management"
-          operations:
-            - method: GET
-              name: get-labsheet-rows
-              description: "Retrieve all data rows from a labsheet"
-              call: "scispot.get-labsheet-rows"
-              with:
-                labsheetId: "rest.labsheetId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: add-labsheet-row
-              description: "Add a new row to a labsheet"
-              call: "scispot.add-labsheet-row"
-              with:
-                labsheetId: "rest.labsheetId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/labsheets/{labsheetId}/rows/{rowId}
-          name: labsheet-row
-          description: "Individual labsheet row operations"
-          operations:
-            - method: GET
-              name: get-labsheet-row
-              description: "Get a specific row by ID"
-              call: "scispot.get-labsheet-row"
-              with:
-                labsheetId: "rest.labsheetId"
-                rowId: "rest.rowId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: PUT
-              name: update-labsheet-row
-              description: "Update an existing labsheet row"
-              call: "scispot.update-labsheet-row"
-              with:
-                labsheetId: "rest.labsheetId"
-                rowId: "rest.rowId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: DELETE
-              name: delete-labsheet-row
-              description: "Delete a labsheet row"
-              call: "scispot.delete-labsheet-row"
-              with:
-                labsheetId: "rest.labsheetId"
-                rowId: "rest.rowId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/samples/search/{barcode}
-          name: barcode-lookup
-          description: "Sample lookup by barcode"
-          operations:
-            - method: GET
-              name: search-by-barcode
-              description: "Find all records associated with a sample barcode"
-              call: "scispot.search-by-barcode"
-              with:
-                barcode: "rest.barcode"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/notebooks
-          name: notebooks
-          description: "ELN notebook management"
-          operations:
-            - method: GET
-              name: list-notebooks
-              description: "List all Electronic Lab Notebooks"
-              call: "scispot.list-notebooks"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/notebooks/{notebookId}/entries
-          name: notebook-entries
-          description: "ELN notebook entry management"
-          operations:
-            - method: GET
-              name: list-notebook-entries
-              description: "List entries in a notebook"
-              call: "scispot.list-notebook-entries"
-              with:
-                notebookId: "rest.notebookId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-notebook-entry
-              description: "Create a new notebook entry"
-              call: "scispot.create-notebook-entry"
-              with:
-                notebookId: "rest.notebookId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/manifests
-          name: manifests
-          description: "Container manifest management (plates, boxes, racks)"
-          operations:
-            - method: GET
-              name: list-manifests
-              description: "List all physical container manifests"
-              call: "scispot.list-manifests"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-manifest
-              description: "Create a new physical container manifest"
-              call: "scispot.create-manifest"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/manifests/{manifestId}
-          name: manifest-detail
-          description: "Individual manifest operations"
-          operations:
-            - method: GET
-              name: get-manifest
-              description: "Get a specific manifest with its contents"
-              call: "scispot.get-manifest"
-              with:
-                manifestId: "rest.manifestId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/sequences
-          name: sequences
-          description: "Biological sequence management"
-          operations:
-            - method: GET
-              name: list-sequences
-              description: "List all biological sequences"
-              call: "scispot.list-sequences"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-sequence
-              description: "Add a new biological sequence"
-              call: "scispot.create-sequence"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/sequences/{sequenceId}
-          name: sequence-detail
-          description: "Individual sequence operations"
-          operations:
-            - method: GET
-              name: get-sequence
-              description: "Get a specific sequence with annotations"
-              call: "scispot.get-sequence"
-              with:
-                sequenceId: "rest.sequenceId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: PUT
-              name: update-sequence
-              description: "Update a biological sequence"
-              call: "scispot.update-sequence"
-              with:
-                sequenceId: "rest.sequenceId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: scispot-lab-management-mcp
-      transport: http
-      description: "MCP server for AI-assisted lab data management using Scispot."
-      tools:
-        - name: list-labsheets
-          description: >-
-            List all LIMS labsheets (data tables) in the Scispot workspace. Labsheets
-            are used for sample registries, assay results, inventory tracking, and
-            any structured lab data.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "scispot.list-labsheets"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-labsheet-rows
-          description: >-
-            Retrieve all data rows from a specific Scispot labsheet. Returns the full
-            dataset with all column values for each row in the specified LIMS table.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "scispot.get-labsheet-rows"
-          with:
-            labsheetId: "tools.labsheetId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: add-labsheet-row
-          description: >-
-            Add a new data row to a Scispot labsheet. Supports barcode assignment and
-            custom column values. Use for sample registration, assay result entry,
-            and inventory updates.
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "scispot.add-labsheet-row"
-          with:
-            labsheetId: "tools.labsheetId"
-            barcode: "tools.barcode"
-            data: "tools.data"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: update-labsheet-row
-          description: >-
-            Update an existing row in a Scispot labsheet with new column values.
-            Used for updating sample status, adding results, or correcting data.
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: true
-          call: "scispot.update-labsheet-row"
-          with:
-            labsheetId: "tools.labsheetId"
-            rowId: "tools.rowId"
-            data: "tools.data"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: delete-labsheet-row
-          description: >-
-            Delete a row from a Scispot labsheet. Use with caution as this
-            permanently removes the record from the LIMS.
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "scispot.delete-labsheet-row"
-          with:
-            labsheetId: "tools.labsheetId"
-            rowId: "tools.rowId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: search-by-barcode
-          description: >-
-            Search all Scispot data by sample barcode. Returns all records across
-            labsheets and experiments associated with the specified barcode.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "scispot.search-by-barcode"
-          with:
-            barcode: "tools.barcode"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-notebooks
-          description: >-
-            List all Electronic Lab Notebook (ELN) notebooks in the Scispot workspace.
-            Notebooks contain experimental protocols, observations, and research notes.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "scispot.list-notebooks"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: create-notebook-entry
-          description: >-
-            Create a new entry in a Scispot ELN notebook. Entries can be experiments,
-            protocol executions, observations, or research notes.
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "scispot.create-notebook-entry"
-          with:
-            notebookId: "tools.notebookId"
-            title: "tools.title"
-            entry_type: "tools.entry_type"
-            content: "tools.content"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-manifests
-          description: >-
-            List all physical container manifests (plates, boxes, racks) in the
-            Scispot workspace. Manifests track sample storage organization.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "scispot.list-manifests"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: create-manifest
-          description: >-
-            Create a new physical container manifest (plate, box, or rack) in Scispot
-            for organizing and tracking sample storage.
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "scispot.create-manifest"
-          with:
-            name: "tools.name"
-            container_type: "tools.container_type"
-            barcode: "tools.barcode"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-sequences
-          description: >-
-            List all biological sequences (DNA, RNA, protein, chemical) stored
-            in the Scispot workspace with their metadata and annotations.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "scispot.list-sequences"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: create-sequence
-          description: >-
-            Add a new biological sequence to the Scispot database. Supports DNA,
-            RNA, protein, and chemical structure sequences with full annotation support.
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "scispot.create-sequence"
-          with:
-            name: "tools.name"
-            sequence_type: "tools.sequence_type"
-            sequence: "tools.sequence"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-sequence
-          description: >-
-            Retrieve a specific biological sequence by ID including its full sequence
-            string, annotations, features, and associated metadata.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "scispot.get-sequence"
-          with:
-            sequenceId: "tools.sequenceId"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: scispot-lab-management-api
+    description: Unified REST API for Scispot lab data management workflows.
+    resources:
+    - path: /v1/labsheets
+      name: labsheets
+      description: LIMS labsheet management
+      operations:
+      - method: GET
+        name: list-labsheets
+        description: List all LIMS labsheets in the workspace
+        call: scispot.list-labsheets
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/labsheets/{labsheetId}/rows
+      name: labsheet-rows
+      description: Labsheet row data management
+      operations:
+      - method: GET
+        name: get-labsheet-rows
+        description: Retrieve all data rows from a labsheet
+        call: scispot.get-labsheet-rows
+        with:
+          labsheetId: rest.labsheetId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: add-labsheet-row
+        description: Add a new row to a labsheet
+        call: scispot.add-labsheet-row
+        with:
+          labsheetId: rest.labsheetId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/labsheets/{labsheetId}/rows/{rowId}
+      name: labsheet-row
+      description: Individual labsheet row operations
+      operations:
+      - method: GET
+        name: get-labsheet-row
+        description: Get a specific row by ID
+        call: scispot.get-labsheet-row
+        with:
+          labsheetId: rest.labsheetId
+          rowId: rest.rowId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: update-labsheet-row
+        description: Update an existing labsheet row
+        call: scispot.update-labsheet-row
+        with:
+          labsheetId: rest.labsheetId
+          rowId: rest.rowId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete-labsheet-row
+        description: Delete a labsheet row
+        call: scispot.delete-labsheet-row
+        with:
+          labsheetId: rest.labsheetId
+          rowId: rest.rowId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/samples/search/{barcode}
+      name: barcode-lookup
+      description: Sample lookup by barcode
+      operations:
+      - method: GET
+        name: search-by-barcode
+        description: Find all records associated with a sample barcode
+        call: scispot.search-by-barcode
+        with:
+          barcode: rest.barcode
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/notebooks
+      name: notebooks
+      description: ELN notebook management
+      operations:
+      - method: GET
+        name: list-notebooks
+        description: List all Electronic Lab Notebooks
+        call: scispot.list-notebooks
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/notebooks/{notebookId}/entries
+      name: notebook-entries
+      description: ELN notebook entry management
+      operations:
+      - method: GET
+        name: list-notebook-entries
+        description: List entries in a notebook
+        call: scispot.list-notebook-entries
+        with:
+          notebookId: rest.notebookId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-notebook-entry
+        description: Create a new notebook entry
+        call: scispot.create-notebook-entry
+        with:
+          notebookId: rest.notebookId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/manifests
+      name: manifests
+      description: Container manifest management (plates, boxes, racks)
+      operations:
+      - method: GET
+        name: list-manifests
+        description: List all physical container manifests
+        call: scispot.list-manifests
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-manifest
+        description: Create a new physical container manifest
+        call: scispot.create-manifest
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/manifests/{manifestId}
+      name: manifest-detail
+      description: Individual manifest operations
+      operations:
+      - method: GET
+        name: get-manifest
+        description: Get a specific manifest with its contents
+        call: scispot.get-manifest
+        with:
+          manifestId: rest.manifestId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/sequences
+      name: sequences
+      description: Biological sequence management
+      operations:
+      - method: GET
+        name: list-sequences
+        description: List all biological sequences
+        call: scispot.list-sequences
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-sequence
+        description: Add a new biological sequence
+        call: scispot.create-sequence
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/sequences/{sequenceId}
+      name: sequence-detail
+      description: Individual sequence operations
+      operations:
+      - method: GET
+        name: get-sequence
+        description: Get a specific sequence with annotations
+        call: scispot.get-sequence
+        with:
+          sequenceId: rest.sequenceId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: update-sequence
+        description: Update a biological sequence
+        call: scispot.update-sequence
+        with:
+          sequenceId: rest.sequenceId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: scispot-lab-management-mcp
+    transport: http
+    description: MCP server for AI-assisted lab data management using Scispot.
+    tools:
+    - name: list-labsheets
+      description: List all LIMS labsheets (data tables) in the Scispot workspace. Labsheets are used for sample registries,
+        assay results, inventory tracking, and any structured lab data.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: scispot.list-labsheets
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-labsheet-rows
+      description: Retrieve all data rows from a specific Scispot labsheet. Returns the full dataset with all column values
+        for each row in the specified LIMS table.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: scispot.get-labsheet-rows
+      with:
+        labsheetId: tools.labsheetId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-labsheet-row
+      description: Add a new data row to a Scispot labsheet. Supports barcode assignment and custom column values. Use for
+        sample registration, assay result entry, and inventory updates.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scispot.add-labsheet-row
+      with:
+        labsheetId: tools.labsheetId
+        barcode: tools.barcode
+        data: tools.data
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-labsheet-row
+      description: Update an existing row in a Scispot labsheet with new column values. Used for updating sample status, adding
+        results, or correcting data.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: scispot.update-labsheet-row
+      with:
+        labsheetId: tools.labsheetId
+        rowId: tools.rowId
+        data: tools.data
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-labsheet-row
+      description: Delete a row from a Scispot labsheet. Use with caution as this permanently removes the record from the
+        LIMS.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: scispot.delete-labsheet-row
+      with:
+        labsheetId: tools.labsheetId
+        rowId: tools.rowId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-by-barcode
+      description: Search all Scispot data by sample barcode. Returns all records across labsheets and experiments associated
+        with the specified barcode.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: scispot.search-by-barcode
+      with:
+        barcode: tools.barcode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-notebooks
+      description: List all Electronic Lab Notebook (ELN) notebooks in the Scispot workspace. Notebooks contain experimental
+        protocols, observations, and research notes.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: scispot.list-notebooks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-notebook-entry
+      description: Create a new entry in a Scispot ELN notebook. Entries can be experiments, protocol executions, observations,
+        or research notes.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scispot.create-notebook-entry
+      with:
+        notebookId: tools.notebookId
+        title: tools.title
+        entry_type: tools.entry_type
+        content: tools.content
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-manifests
+      description: List all physical container manifests (plates, boxes, racks) in the Scispot workspace. Manifests track
+        sample storage organization.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: scispot.list-manifests
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-manifest
+      description: Create a new physical container manifest (plate, box, or rack) in Scispot for organizing and tracking sample
+        storage.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scispot.create-manifest
+      with:
+        name: tools.name
+        container_type: tools.container_type
+        barcode: tools.barcode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-sequences
+      description: List all biological sequences (DNA, RNA, protein, chemical) stored in the Scispot workspace with their
+        metadata and annotations.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: scispot.list-sequences
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-sequence
+      description: Add a new biological sequence to the Scispot database. Supports DNA, RNA, protein, and chemical structure
+        sequences with full annotation support.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scispot.create-sequence
+      with:
+        name: tools.name
+        sequence_type: tools.sequence_type
+        sequence: tools.sequence
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-sequence
+      description: Retrieve a specific biological sequence by ID including its full sequence string, annotations, features,
+        and associated metadata.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: scispot.get-sequence
+      with:
+        sequenceId: tools.sequenceId
+      outputParameters:
+      - type: object
+        mapping: $.
