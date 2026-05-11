@@ -67,6 +67,29 @@ common:
     url: https://docs.scispot.com/
   - type: Developer Portal
     url: https://www.scispot.com/compbio
+  - type: Integrations
+    url: https://www.scispot.com/integrations
+integrations:
+  - name: labOSIcons
+  - name: glue navigation
+  - name: LIMS navigation
+  - name: LIS navigation
+  - name: QMS Navigation
+  - name: SDMS Navigation
+  - name: labflows navigation
+  - name: labsheets navigation
+  - name: labspace navigation
+  - name: Computational Toolkit Navigation
+  - name: Connectors and Agents Navigation
+  - name: Workflow Automation Navigation
+  - name: Inventory Automation Navigation
+  - name: Startup Navigation
+  - name: Scaleup Navigation
+  - name: Enterprise Navigation
+  - name: Resources Navigation
+  - name: Company Navigation
+  - name: Alt ELN Evaluation Tool
+  - name: glpVendor Navigation
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
