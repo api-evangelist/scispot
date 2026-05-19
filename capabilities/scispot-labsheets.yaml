@@ -1,0 +1,323 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Scispot API — Labsheets
+  description: 'Scispot API — Labsheets. 6 operations. Lead operation: List Labsheets. Self-contained Naftiko capability covering
+    one Scispot business surface.'
+  tags:
+  - Scispot
+  - Labsheets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCISPOT_API_KEY: SCISPOT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scispot-labsheets
+    baseUri: https://api.scispot.com/v1
+    description: Scispot API — Labsheets business capability. Self-contained, no shared references.
+    resources:
+    - name: labsheets
+      path: /labsheets
+      operations:
+      - name: listlabsheets
+        method: GET
+        description: List Labsheets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination
+        - name: limit
+          in: query
+          type: integer
+          description: Number of results per page
+    - name: labsheets-labsheetId-rows
+      path: /labsheets/{labsheetId}/rows
+      operations:
+      - name: getlabsheetrows
+        method: GET
+        description: Get Labsheet Rows
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: labsheetId
+          in: path
+          type: string
+          description: Unique identifier of the Labsheet
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination
+        - name: limit
+          in: query
+          type: integer
+          description: Number of rows per page
+      - name: addlabsheetrow
+        method: POST
+        description: Add Labsheet Row
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: labsheetId
+          in: path
+          type: string
+          description: Unique identifier of the Labsheet
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: labsheets-labsheetId-rows-rowId
+      path: /labsheets/{labsheetId}/rows/{rowId}
+      operations:
+      - name: getlabsheetrow
+        method: GET
+        description: Get Labsheet Row
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: labsheetId
+          in: path
+          type: string
+          description: Unique identifier of the Labsheet
+          required: true
+        - name: rowId
+          in: path
+          type: string
+          description: Unique identifier of the row
+          required: true
+      - name: updatelabsheetrow
+        method: PUT
+        description: Update Labsheet Row
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: labsheetId
+          in: path
+          type: string
+          description: Unique identifier of the Labsheet
+          required: true
+        - name: rowId
+          in: path
+          type: string
+          description: Unique identifier of the row
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletelabsheetrow
+        method: DELETE
+        description: Delete Labsheet Row
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: labsheetId
+          in: path
+          type: string
+          description: Unique identifier of the Labsheet
+          required: true
+        - name: rowId
+          in: path
+          type: string
+          description: Unique identifier of the row
+          required: true
+    authentication:
+      type: apikey
+      key: apiKey
+      value: '{{env.SCISPOT_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: scispot-labsheets-rest
+    port: 8080
+    description: REST adapter for Scispot API — Labsheets. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/labsheets
+      name: labsheets
+      description: REST surface for labsheets.
+      operations:
+      - method: GET
+        name: listlabsheets
+        description: List Labsheets
+        call: scispot-labsheets.listlabsheets
+        with:
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/labsheets/{labsheetid}/rows
+      name: labsheets-labsheetid-rows
+      description: REST surface for labsheets-labsheetId-rows.
+      operations:
+      - method: GET
+        name: getlabsheetrows
+        description: Get Labsheet Rows
+        call: scispot-labsheets.getlabsheetrows
+        with:
+          labsheetId: rest.labsheetId
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addlabsheetrow
+        description: Add Labsheet Row
+        call: scispot-labsheets.addlabsheetrow
+        with:
+          labsheetId: rest.labsheetId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/labsheets/{labsheetid}/rows/{rowid}
+      name: labsheets-labsheetid-rows-rowid
+      description: REST surface for labsheets-labsheetId-rows-rowId.
+      operations:
+      - method: GET
+        name: getlabsheetrow
+        description: Get Labsheet Row
+        call: scispot-labsheets.getlabsheetrow
+        with:
+          labsheetId: rest.labsheetId
+          rowId: rest.rowId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatelabsheetrow
+        description: Update Labsheet Row
+        call: scispot-labsheets.updatelabsheetrow
+        with:
+          labsheetId: rest.labsheetId
+          rowId: rest.rowId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletelabsheetrow
+        description: Delete Labsheet Row
+        call: scispot-labsheets.deletelabsheetrow
+        with:
+          labsheetId: rest.labsheetId
+          rowId: rest.rowId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: scispot-labsheets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Scispot API — Labsheets. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-labsheets
+      description: List Labsheets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scispot-labsheets.listlabsheets
+      with:
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-labsheet-rows
+      description: Get Labsheet Rows
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scispot-labsheets.getlabsheetrows
+      with:
+        labsheetId: tools.labsheetId
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-labsheet-row
+      description: Add Labsheet Row
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scispot-labsheets.addlabsheetrow
+      with:
+        labsheetId: tools.labsheetId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-labsheet-row
+      description: Get Labsheet Row
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scispot-labsheets.getlabsheetrow
+      with:
+        labsheetId: tools.labsheetId
+        rowId: tools.rowId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-labsheet-row
+      description: Update Labsheet Row
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: scispot-labsheets.updatelabsheetrow
+      with:
+        labsheetId: tools.labsheetId
+        rowId: tools.rowId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-labsheet-row
+      description: Delete Labsheet Row
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: scispot-labsheets.deletelabsheetrow
+      with:
+        labsheetId: tools.labsheetId
+        rowId: tools.rowId
+      outputParameters:
+      - type: object
+        mapping: $.

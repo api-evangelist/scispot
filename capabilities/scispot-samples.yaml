@@ -1,0 +1,124 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Scispot API — Samples
+  description: 'Scispot API — Samples. 2 operations. Lead operation: Search Results by Sample ID. Self-contained Naftiko capability
+    covering one Scispot business surface.'
+  tags:
+  - Scispot
+  - Samples
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCISPOT_API_KEY: SCISPOT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scispot-samples
+    baseUri: https://api.scispot.com/v1
+    description: Scispot API — Samples business capability. Self-contained, no shared references.
+    resources:
+    - name: results-search-sample-sampleId
+      path: /results/search/sample/{sampleId}
+      operations:
+      - name: searchresultsbysampleid
+        method: GET
+        description: Search Results by Sample ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sampleId
+          in: path
+          type: string
+          description: Internal sample identifier
+          required: true
+    - name: results-search-barcode
+      path: /results/search/{barcode}
+      operations:
+      - name: searchresultsbybarcode
+        method: GET
+        description: Search Results by Barcode
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: barcode
+          in: path
+          type: string
+          description: Barcode identifier for the sample
+          required: true
+    authentication:
+      type: apikey
+      key: apiKey
+      value: '{{env.SCISPOT_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: scispot-samples-rest
+    port: 8080
+    description: REST adapter for Scispot API — Samples. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/results/search/sample/{sampleid}
+      name: results-search-sample-sampleid
+      description: REST surface for results-search-sample-sampleId.
+      operations:
+      - method: GET
+        name: searchresultsbysampleid
+        description: Search Results by Sample ID
+        call: scispot-samples.searchresultsbysampleid
+        with:
+          sampleId: rest.sampleId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/results/search/{barcode}
+      name: results-search-barcode
+      description: REST surface for results-search-barcode.
+      operations:
+      - method: GET
+        name: searchresultsbybarcode
+        description: Search Results by Barcode
+        call: scispot-samples.searchresultsbybarcode
+        with:
+          barcode: rest.barcode
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: scispot-samples-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Scispot API — Samples. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: search-results-sample-id
+      description: Search Results by Sample ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scispot-samples.searchresultsbysampleid
+      with:
+        sampleId: tools.sampleId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-results-barcode
+      description: Search Results by Barcode
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scispot-samples.searchresultsbybarcode
+      with:
+        barcode: tools.barcode
+      outputParameters:
+      - type: object
+        mapping: $.

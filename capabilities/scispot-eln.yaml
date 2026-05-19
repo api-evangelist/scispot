@@ -1,0 +1,183 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Scispot API — ELN
+  description: 'Scispot API — ELN. 3 operations. Lead operation: List ELN Notebooks. Self-contained Naftiko capability covering
+    one Scispot business surface.'
+  tags:
+  - Scispot
+  - ELN
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCISPOT_API_KEY: SCISPOT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scispot-eln
+    baseUri: https://api.scispot.com/v1
+    description: Scispot API — ELN business capability. Self-contained, no shared references.
+    resources:
+    - name: eln-notebooks
+      path: /eln/notebooks
+      operations:
+      - name: listnotebooks
+        method: GET
+        description: List ELN Notebooks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination
+        - name: limit
+          in: query
+          type: integer
+          description: Number of notebooks per page
+    - name: eln-notebooks-notebookId-entries
+      path: /eln/notebooks/{notebookId}/entries
+      operations:
+      - name: listnotebookentries
+        method: GET
+        description: List Notebook Entries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: notebookId
+          in: path
+          type: string
+          description: Unique identifier of the notebook
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination
+        - name: limit
+          in: query
+          type: integer
+          description: Number of entries per page
+      - name: createnotebookentry
+        method: POST
+        description: Create Notebook Entry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: notebookId
+          in: path
+          type: string
+          description: Unique identifier of the notebook
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: apiKey
+      value: '{{env.SCISPOT_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: scispot-eln-rest
+    port: 8080
+    description: REST adapter for Scispot API — ELN. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/eln/notebooks
+      name: eln-notebooks
+      description: REST surface for eln-notebooks.
+      operations:
+      - method: GET
+        name: listnotebooks
+        description: List ELN Notebooks
+        call: scispot-eln.listnotebooks
+        with:
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/eln/notebooks/{notebookid}/entries
+      name: eln-notebooks-notebookid-entries
+      description: REST surface for eln-notebooks-notebookId-entries.
+      operations:
+      - method: GET
+        name: listnotebookentries
+        description: List Notebook Entries
+        call: scispot-eln.listnotebookentries
+        with:
+          notebookId: rest.notebookId
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createnotebookentry
+        description: Create Notebook Entry
+        call: scispot-eln.createnotebookentry
+        with:
+          notebookId: rest.notebookId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: scispot-eln-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Scispot API — ELN. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-eln-notebooks
+      description: List ELN Notebooks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scispot-eln.listnotebooks
+      with:
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-notebook-entries
+      description: List Notebook Entries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scispot-eln.listnotebookentries
+      with:
+        notebookId: tools.notebookId
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-notebook-entry
+      description: Create Notebook Entry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scispot-eln.createnotebookentry
+      with:
+        notebookId: tools.notebookId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

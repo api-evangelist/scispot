@@ -1,0 +1,170 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Scispot API — Manifests
+  description: 'Scispot API — Manifests. 3 operations. Lead operation: List Manifests. Self-contained Naftiko capability covering
+    one Scispot business surface.'
+  tags:
+  - Scispot
+  - Manifests
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SCISPOT_API_KEY: SCISPOT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scispot-manifests
+    baseUri: https://api.scispot.com/v1
+    description: Scispot API — Manifests business capability. Self-contained, no shared references.
+    resources:
+    - name: manifests
+      path: /manifests
+      operations:
+      - name: listmanifests
+        method: GET
+        description: List Manifests
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          description: Filter by container type (plate, box, rack)
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination
+        - name: limit
+          in: query
+          type: integer
+          description: Number of manifests per page
+      - name: createmanifest
+        method: POST
+        description: Create Manifest
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: manifests-manifestId
+      path: /manifests/{manifestId}
+      operations:
+      - name: getmanifest
+        method: GET
+        description: Get Manifest
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: manifestId
+          in: path
+          type: string
+          description: Unique identifier of the Manifest
+          required: true
+    authentication:
+      type: apikey
+      key: apiKey
+      value: '{{env.SCISPOT_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: scispot-manifests-rest
+    port: 8080
+    description: REST adapter for Scispot API — Manifests. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/manifests
+      name: manifests
+      description: REST surface for manifests.
+      operations:
+      - method: GET
+        name: listmanifests
+        description: List Manifests
+        call: scispot-manifests.listmanifests
+        with:
+          type: rest.type
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createmanifest
+        description: Create Manifest
+        call: scispot-manifests.createmanifest
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/manifests/{manifestid}
+      name: manifests-manifestid
+      description: REST surface for manifests-manifestId.
+      operations:
+      - method: GET
+        name: getmanifest
+        description: Get Manifest
+        call: scispot-manifests.getmanifest
+        with:
+          manifestId: rest.manifestId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: scispot-manifests-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Scispot API — Manifests. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-manifests
+      description: List Manifests
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scispot-manifests.listmanifests
+      with:
+        type: tools.type
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-manifest
+      description: Create Manifest
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scispot-manifests.createmanifest
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-manifest
+      description: Get Manifest
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scispot-manifests.getmanifest
+      with:
+        manifestId: tools.manifestId
+      outputParameters:
+      - type: object
+        mapping: $.
