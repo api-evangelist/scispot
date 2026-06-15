@@ -1,0 +1,3639 @@
+{
+  "item": [
+    {
+      "id": "6b7cd534-c1ce-42f8-ac1f-418c8070ebad",
+      "name": "Labsheets",
+      "description": {
+        "content": "LIMS-style structured data tables for registries, sample tracking, and assay data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8b63d39d-4669-44cc-af43-51ea9e339298",
+          "name": "List Labsheets",
+          "request": {
+            "name": "List Labsheets",
+            "description": {
+              "content": "Retrieve a list of all Labsheets in the workspace. Labsheets are structured data tables that serve as the LIMS backbone of Scispot, used for registries, sample tracking, assay results, and inventory.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "labsheets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of results per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c39fb046-d52f-4d4e-93e2-1cdbeffb149c",
+              "name": "List of labsheets",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"columns\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"text\",\n          \"required\": false\n        },\n        {\n          \"name\": \"string\",\n          \"type\": \"date\",\n          \"required\": false\n        }\n      ],\n      \"rowCount\": 5680,\n      \"createdAt\": \"2026-04-06T18:16:33.199Z\",\n      \"updatedAt\": \"2004-01-07T04:03:09.019Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"columns\": [\n        {\n          \"name\": \"string\",\n          \"type\": \"number\",\n          \"required\": true\n        },\n        {\n          \"name\": \"string\",\n          \"type\": \"barcode\",\n          \"required\": true\n        }\n      ],\n      \"rowCount\": 9264,\n      \"createdAt\": \"1992-02-15T01:43:49.838Z\",\n      \"updatedAt\": \"2019-10-06T14:20:33.034Z\"\n    }\n  ],\n  \"total\": 763,\n  \"page\": 4498,\n  \"limit\": 2458\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df3139c8-d764-4f0f-a88d-7298531d9314",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e01e79a6-e837-45f1-a318-4c56bfab6685",
+          "name": "Get Labsheet Rows",
+          "request": {
+            "name": "Get Labsheet Rows",
+            "description": {
+              "content": "Retrieve all rows from a specific Labsheet. Returns structured data records with all column values for each row in the labsheet.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "labsheets",
+                ":labsheetId",
+                "rows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Number of rows per page"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "labsheetId",
+                  "description": "(Required) Unique identifier of the Labsheet"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bdffe9ab-caf7-4f8c-9c40-9b6fadafe099",
+              "name": "Labsheet rows",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"labsheetId\": \"string\",\n      \"barcode\": \"string\",\n      \"data\": {\n        \"key_0\": 9099\n      },\n      \"createdAt\": \"1954-01-27T19:51:53.414Z\",\n      \"updatedAt\": \"1977-02-02T09:08:41.543Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"labsheetId\": \"string\",\n      \"barcode\": \"string\",\n      \"data\": {\n        \"key_0\": \"string\",\n        \"key_1\": 9608,\n        \"key_2\": 6954\n      },\n      \"createdAt\": \"1988-11-25T08:15:36.542Z\",\n      \"updatedAt\": \"2017-09-21T12:22:32.694Z\"\n    }\n  ],\n  \"total\": 9940,\n  \"page\": 390,\n  \"limit\": 2759\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d05a5871-e015-4469-8cd3-4ec960cc8750",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1351e4c5-59d7-418d-a169-f271763a46bf",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da782493-e4b1-4322-b276-53199f177641",
+          "name": "Add Labsheet Row",
+          "request": {
+            "name": "Add Labsheet Row",
+            "description": {
+              "content": "Add a new row to a Labsheet. Accepts column values as key-value pairs matching the Labsheet schema. Supports barcode assignment and metadata attachment for sample tracking workflows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "labsheets",
+                ":labsheetId",
+                "rows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "labsheetId",
+                  "description": "(Required) Unique identifier of the Labsheet"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"key_0\": 7501\n  },\n  \"barcode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b1175e00-a088-4d8a-9f00-5507922addc3",
+              "name": "Row added successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": 77.88339067420158\n  },\n  \"barcode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"labsheetId\": \"string\",\n  \"barcode\": \"string\",\n  \"data\": {\n    \"key_0\": 6184.404760773058,\n    \"key_1\": 2057.0595322748086\n  },\n  \"createdAt\": \"2008-12-19T14:05:53.449Z\",\n  \"updatedAt\": \"1992-08-12T19:04:13.448Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1629c0b8-5f87-42f6-937a-a8093e7b3fff",
+              "name": "Invalid request parameters or body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": 77.88339067420158\n  },\n  \"barcode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "638ab04b-c9ea-436c-9383-1667d2550f96",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": 77.88339067420158\n  },\n  \"barcode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98964c0b-1cd2-4bc2-adc2-98037bcf8a6d",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": 77.88339067420158\n  },\n  \"barcode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f88fb48-5b99-44a7-aab6-0cbc340f7a8b",
+          "name": "Get Labsheet Row",
+          "request": {
+            "name": "Get Labsheet Row",
+            "description": {
+              "content": "Retrieve a single row from a Labsheet by its unique row identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "labsheets",
+                ":labsheetId",
+                "rows",
+                ":rowId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "labsheetId",
+                  "description": "(Required) Unique identifier of the Labsheet"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "rowId",
+                  "description": "(Required) Unique identifier of the row"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "557a3f58-89cb-4729-bb78-9d5a146d979f",
+              "name": "Labsheet row",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows",
+                    ":rowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "rowId",
+                      "description": "(Required) Unique identifier of the row"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"labsheetId\": \"string\",\n  \"barcode\": \"string\",\n  \"data\": {\n    \"key_0\": 6184.404760773058,\n    \"key_1\": 2057.0595322748086\n  },\n  \"createdAt\": \"2008-12-19T14:05:53.449Z\",\n  \"updatedAt\": \"1992-08-12T19:04:13.448Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad2d71a2-743e-4a4c-adfe-3cbb3a452883",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows",
+                    ":rowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "rowId",
+                      "description": "(Required) Unique identifier of the row"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e97dcad-39aa-45b2-8b1c-c9d0a3a5b6e1",
+          "name": "Update Labsheet Row",
+          "request": {
+            "name": "Update Labsheet Row",
+            "description": {
+              "content": "Update an existing row in a Labsheet. Accepts updated column values as key-value pairs. Only specified fields are updated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "labsheets",
+                ":labsheetId",
+                "rows",
+                ":rowId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "labsheetId",
+                  "description": "(Required) Unique identifier of the Labsheet"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "rowId",
+                  "description": "(Required) Unique identifier of the row"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"key_0\": 7501\n  },\n  \"barcode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8727bb38-30af-48b6-83e0-ce898ed3755b",
+              "name": "Row updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows",
+                    ":rowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "rowId",
+                      "description": "(Required) Unique identifier of the row"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": 77.88339067420158\n  },\n  \"barcode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"labsheetId\": \"string\",\n  \"barcode\": \"string\",\n  \"data\": {\n    \"key_0\": 6184.404760773058,\n    \"key_1\": 2057.0595322748086\n  },\n  \"createdAt\": \"2008-12-19T14:05:53.449Z\",\n  \"updatedAt\": \"1992-08-12T19:04:13.448Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8cff2f3-956c-4464-a056-62d5589faae4",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows",
+                    ":rowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "rowId",
+                      "description": "(Required) Unique identifier of the row"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": 77.88339067420158\n  },\n  \"barcode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a9aef6c-9048-4d5c-b408-1113db07ce12",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows",
+                    ":rowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "rowId",
+                      "description": "(Required) Unique identifier of the row"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": 77.88339067420158\n  },\n  \"barcode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91b8cf1b-67d1-416f-a7e7-540bca4de4e6",
+          "name": "Delete Labsheet Row",
+          "request": {
+            "name": "Delete Labsheet Row",
+            "description": {
+              "content": "Delete a row from a Labsheet by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "labsheets",
+                ":labsheetId",
+                "rows",
+                ":rowId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "labsheetId",
+                  "description": "(Required) Unique identifier of the Labsheet"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "rowId",
+                  "description": "(Required) Unique identifier of the row"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "119c357b-0f68-45b9-9773-2a1619c01a63",
+              "name": "Row deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows",
+                    ":rowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "rowId",
+                      "description": "(Required) Unique identifier of the row"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d35e642c-f50a-4c45-847b-cc4fdeecab2d",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows",
+                    ":rowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "rowId",
+                      "description": "(Required) Unique identifier of the row"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e75bbb9-9849-4146-b6ce-9dac52c115a6",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "labsheets",
+                    ":labsheetId",
+                    "rows",
+                    ":rowId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "labsheetId",
+                      "description": "(Required) Unique identifier of the Labsheet"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "rowId",
+                      "description": "(Required) Unique identifier of the row"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9af6f198-e2dd-4d6c-bed6-c5d98b8332d9",
+      "name": "ELN",
+      "description": {
+        "content": "Electronic Lab Notebook protocols and experimental records",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "446cd392-e1ee-4b77-89b9-5c6d314688f7",
+          "name": "List ELN Notebooks",
+          "request": {
+            "name": "List ELN Notebooks",
+            "description": {
+              "content": "Retrieve a list of all Electronic Lab Notebook notebooks in the workspace. Notebooks contain protocols, experiments, and observations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eln",
+                "notebooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of notebooks per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "469aaba4-bf51-45e2-bd45-f59c5c71b077",
+              "name": "List of notebooks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eln",
+                    "notebooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"entryCount\": 5253,\n      \"createdAt\": \"1987-09-03T08:28:51.287Z\",\n      \"updatedAt\": \"1971-01-26T06:49:04.327Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"entryCount\": 61,\n      \"createdAt\": \"1952-09-29T15:46:58.935Z\",\n      \"updatedAt\": \"1959-01-12T03:08:39.010Z\"\n    }\n  ],\n  \"total\": 4482,\n  \"page\": 8982,\n  \"limit\": 7334\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7df57360-df02-4ae4-a0f4-34e3f28406bc",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eln",
+                    "notebooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab1ccaa6-c33c-4252-afff-d8eb0e93d64d",
+          "name": "List Notebook Entries",
+          "request": {
+            "name": "List Notebook Entries",
+            "description": {
+              "content": "Retrieve all entries (experiments, observations, protocols) within a specific notebook.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eln",
+                "notebooks",
+                ":notebookId",
+                "entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of entries per page"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "notebookId",
+                  "description": "(Required) Unique identifier of the notebook"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88f39b28-e283-4d02-b916-772817732f06",
+              "name": "List of notebook entries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eln",
+                    "notebooks",
+                    ":notebookId",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "notebookId",
+                      "description": "(Required) Unique identifier of the notebook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"notebookId\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"experiment\",\n      \"content\": {\n        \"key_0\": 6815.932768986599,\n        \"key_1\": 1172.1680074584883\n      },\n      \"createdAt\": \"1967-12-12T18:15:35.549Z\",\n      \"updatedAt\": \"1964-11-16T00:12:26.455Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"notebookId\": \"string\",\n      \"title\": \"string\",\n      \"type\": \"observation\",\n      \"content\": {\n        \"key_0\": true,\n        \"key_1\": \"string\"\n      },\n      \"createdAt\": \"1959-07-01T06:45:07.750Z\",\n      \"updatedAt\": \"1992-01-09T19:06:21.866Z\"\n    }\n  ],\n  \"total\": 2238,\n  \"page\": 7247,\n  \"limit\": 4996\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b131dac5-267b-4664-947b-c9823df0e402",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eln",
+                    "notebooks",
+                    ":notebookId",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "notebookId",
+                      "description": "(Required) Unique identifier of the notebook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a97c0e61-a9ac-438a-9f37-74af5f383adf",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eln",
+                    "notebooks",
+                    ":notebookId",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "notebookId",
+                      "description": "(Required) Unique identifier of the notebook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f0b4f7e-ab30-498e-8039-87340700208e",
+          "name": "Create Notebook Entry",
+          "request": {
+            "name": "Create Notebook Entry",
+            "description": {
+              "content": "Create a new entry in an ELN notebook. Entries can represent experiments, protocol executions, observations, or general notes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "eln",
+                "notebooks",
+                ":notebookId",
+                "entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "notebookId",
+                  "description": "(Required) Unique identifier of the notebook"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\",\n  \"type\": \"<string>\",\n  \"content\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e9af6494-eb10-4e4c-983d-15f8662e48aa",
+              "name": "Notebook entry created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eln",
+                    "notebooks",
+                    ":notebookId",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "notebookId",
+                      "description": "(Required) Unique identifier of the notebook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"type\": \"<string>\",\n  \"content\": {\n    \"key_0\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"notebookId\": \"string\",\n  \"title\": \"string\",\n  \"type\": \"protocol\",\n  \"content\": {\n    \"key_0\": \"string\",\n    \"key_1\": 7323\n  },\n  \"createdAt\": \"1987-11-26T18:19:33.917Z\",\n  \"updatedAt\": \"1950-10-30T04:46:53.155Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5add8cd9-cd56-426e-ba5b-616c9f4a8da1",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "eln",
+                    "notebooks",
+                    ":notebookId",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "notebookId",
+                      "description": "(Required) Unique identifier of the notebook"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\",\n  \"type\": \"<string>\",\n  \"content\": {\n    \"key_0\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "47de1506-0360-4bb4-b60a-50e6891e66b2",
+      "name": "Manifests",
+      "description": {
+        "content": "Physical container management including plates, boxes, and racks",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "91f0d39e-f374-4c04-b584-0775c6ef136d",
+          "name": "List Manifests",
+          "request": {
+            "name": "List Manifests",
+            "description": {
+              "content": "Retrieve a list of all Manifests in the workspace. Manifests represent physical containers such as plates, boxes, racks, and other storage units used in laboratory workflows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "manifests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by container type (plate, box, rack)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of manifests per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "568e10d1-0f26-4ea5-ae1a-240391c8bc50",
+              "name": "List of manifests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"rack\",\n      \"barcode\": \"string\",\n      \"dimensions\": {\n        \"rows\": 2873,\n        \"columns\": 2887\n      },\n      \"items\": [\n        {\n          \"position\": \"string\",\n          \"sampleId\": \"string\",\n          \"barcode\": \"string\"\n        },\n        {\n          \"position\": \"string\",\n          \"sampleId\": \"string\",\n          \"barcode\": \"string\"\n        }\n      ],\n      \"createdAt\": \"1977-05-25T13:53:05.979Z\",\n      \"updatedAt\": \"1959-02-01T11:10:08.433Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"rack\",\n      \"barcode\": \"string\",\n      \"dimensions\": {\n        \"rows\": 8487,\n        \"columns\": 3285\n      },\n      \"items\": [\n        {\n          \"position\": \"string\",\n          \"sampleId\": \"string\",\n          \"barcode\": \"string\"\n        },\n        {\n          \"position\": \"string\",\n          \"sampleId\": \"string\",\n          \"barcode\": \"string\"\n        }\n      ],\n      \"createdAt\": \"2008-07-17T00:13:06.653Z\",\n      \"updatedAt\": \"2015-01-31T12:07:01.839Z\"\n    }\n  ],\n  \"total\": 9715,\n  \"page\": 7505,\n  \"limit\": 9149\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45a81920-3274-4d51-aa94-bcc12b9f1d5c",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c868e028-03d1-4b30-9c7e-e9515e88cccd",
+          "name": "Create Manifest",
+          "request": {
+            "name": "Create Manifest",
+            "description": {
+              "content": "Create a new Manifest (plate, box, rack, or other container) in the workspace. Manifests track the physical location and organization of samples and materials in the lab.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "manifests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"dimensions\": {\n    \"rows\": \"<integer>\",\n    \"columns\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5603475c-6e2e-4511-9fef-83b75643d433",
+              "name": "Manifest created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"dimensions\": {\n    \"rows\": \"<integer>\",\n    \"columns\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"box\",\n  \"barcode\": \"string\",\n  \"dimensions\": {\n    \"rows\": 6668,\n    \"columns\": 8897\n  },\n  \"items\": [\n    {\n      \"position\": \"string\",\n      \"sampleId\": \"string\",\n      \"barcode\": \"string\"\n    },\n    {\n      \"position\": \"string\",\n      \"sampleId\": \"string\",\n      \"barcode\": \"string\"\n    }\n  ],\n  \"createdAt\": \"2017-09-23T12:13:34.455Z\",\n  \"updatedAt\": \"1970-03-11T20:00:49.731Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a851a33-2a11-4adf-bbba-865edee71b00",
+              "name": "Invalid request parameters or body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"dimensions\": {\n    \"rows\": \"<integer>\",\n    \"columns\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "207da8e3-7be5-4437-adfe-eed55e3241cf",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"dimensions\": {\n    \"rows\": \"<integer>\",\n    \"columns\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "17fd922e-e9c8-4aef-964d-ba1407dee429",
+          "name": "Get Manifest",
+          "request": {
+            "name": "Get Manifest",
+            "description": {
+              "content": "Retrieve a single Manifest by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "manifests",
+                ":manifestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "manifestId",
+                  "description": "(Required) Unique identifier of the Manifest"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df73b17c-4809-4f26-b120-69367f6953a8",
+              "name": "Manifest details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests",
+                    ":manifestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "manifestId",
+                      "description": "(Required) Unique identifier of the Manifest"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"box\",\n  \"barcode\": \"string\",\n  \"dimensions\": {\n    \"rows\": 6668,\n    \"columns\": 8897\n  },\n  \"items\": [\n    {\n      \"position\": \"string\",\n      \"sampleId\": \"string\",\n      \"barcode\": \"string\"\n    },\n    {\n      \"position\": \"string\",\n      \"sampleId\": \"string\",\n      \"barcode\": \"string\"\n    }\n  ],\n  \"createdAt\": \"2017-09-23T12:13:34.455Z\",\n  \"updatedAt\": \"1970-03-11T20:00:49.731Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90b62b30-2570-4413-a92c-0ed4f5e7ff03",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests",
+                    ":manifestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "manifestId",
+                      "description": "(Required) Unique identifier of the Manifest"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "aa7144e8-7890-410d-ae5b-a8afa430d714",
+      "name": "Sequences",
+      "description": {
+        "content": "Biological sequence management for DNA, RNA, and protein sequences",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a46d7756-1243-4c9a-9bb7-bcf467f27f85",
+          "name": "List Sequences",
+          "request": {
+            "name": "List Sequences",
+            "description": {
+              "content": "Retrieve a list of all biological sequences in the workspace. Sequences include DNA, RNA, and protein sequences with associated metadata, annotations, and links to experimental records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sequences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by sequence type"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of sequences per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6d0d8ee2-c713-4601-afad-895940528c48",
+              "name": "List of sequences",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"rna\",\n      \"sequence\": \"string\",\n      \"length\": 4617,\n      \"annotations\": [\n        {\n          \"name\": \"string\",\n          \"start\": 4994,\n          \"end\": 3694,\n          \"type\": \"string\",\n          \"strand\": \"forward\"\n        },\n        {\n          \"name\": \"string\",\n          \"start\": 5643,\n          \"end\": 8591,\n          \"type\": \"string\",\n          \"strand\": \"forward\"\n        }\n      ],\n      \"metadata\": {\n        \"key_0\": 7206\n      },\n      \"createdAt\": \"1972-05-27T08:24:21.391Z\",\n      \"updatedAt\": \"2024-03-14T02:53:04.874Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"chemical\",\n      \"sequence\": \"string\",\n      \"length\": 6326,\n      \"annotations\": [\n        {\n          \"name\": \"string\",\n          \"start\": 6609,\n          \"end\": 7905,\n          \"type\": \"string\",\n          \"strand\": \"forward\"\n        },\n        {\n          \"name\": \"string\",\n          \"start\": 3843,\n          \"end\": 436,\n          \"type\": \"string\",\n          \"strand\": \"forward\"\n        }\n      ],\n      \"metadata\": {\n        \"key_0\": \"string\",\n        \"key_1\": true,\n        \"key_2\": false\n      },\n      \"createdAt\": \"1950-02-03T18:07:55.396Z\",\n      \"updatedAt\": \"2005-06-23T21:55:09.762Z\"\n    }\n  ],\n  \"total\": 5923,\n  \"page\": 6009,\n  \"limit\": 951\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "212d9abf-1374-4800-b0dc-790793accf5b",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20ec66a0-ab9b-4fa0-a24b-c7c7821dfe90",
+          "name": "Create Sequence",
+          "request": {
+            "name": "Create Sequence",
+            "description": {
+              "content": "Add a new biological sequence to the workspace. Supports DNA, RNA, protein, and chemical structure sequences with full annotation support.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sequences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f410b5e5-493a-4c4f-ae2d-4ec53e02ef25",
+              "name": "Sequence created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": 175,\n    \"key_1\": 3239,\n    \"key_2\": 6609,\n    \"key_3\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"chemical\",\n  \"sequence\": \"string\",\n  \"length\": 3074,\n  \"annotations\": [\n    {\n      \"name\": \"string\",\n      \"start\": 4062,\n      \"end\": 1905,\n      \"type\": \"string\",\n      \"strand\": \"reverse\"\n    },\n    {\n      \"name\": \"string\",\n      \"start\": 8223,\n      \"end\": 5251,\n      \"type\": \"string\",\n      \"strand\": \"reverse\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": 8347.60076734189,\n    \"key_2\": \"string\"\n  },\n  \"createdAt\": \"1992-01-10T09:10:04.184Z\",\n  \"updatedAt\": \"2021-06-03T06:23:36.309Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "296daa88-e89d-43da-af05-fa025752a833",
+              "name": "Invalid request parameters or body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": 175,\n    \"key_1\": 3239,\n    \"key_2\": 6609,\n    \"key_3\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9eba9e00-65d1-49f8-959b-7e1b2a726684",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": 175,\n    \"key_1\": 3239,\n    \"key_2\": 6609,\n    \"key_3\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29074b4d-3699-4466-af77-3b2f869bd3ff",
+          "name": "Get Sequence",
+          "request": {
+            "name": "Get Sequence",
+            "description": {
+              "content": "Retrieve a single biological sequence by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sequences",
+                ":sequenceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sequenceId",
+                  "description": "(Required) Unique identifier of the sequence"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd1e99a9-ec80-4a9e-81f6-3823049b9e70",
+              "name": "Sequence details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences",
+                    ":sequenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sequenceId",
+                      "description": "(Required) Unique identifier of the sequence"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"chemical\",\n  \"sequence\": \"string\",\n  \"length\": 3074,\n  \"annotations\": [\n    {\n      \"name\": \"string\",\n      \"start\": 4062,\n      \"end\": 1905,\n      \"type\": \"string\",\n      \"strand\": \"reverse\"\n    },\n    {\n      \"name\": \"string\",\n      \"start\": 8223,\n      \"end\": 5251,\n      \"type\": \"string\",\n      \"strand\": \"reverse\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": 8347.60076734189,\n    \"key_2\": \"string\"\n  },\n  \"createdAt\": \"1992-01-10T09:10:04.184Z\",\n  \"updatedAt\": \"2021-06-03T06:23:36.309Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37a1f97c-b057-4596-830b-012bc6ea12e6",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences",
+                    ":sequenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sequenceId",
+                      "description": "(Required) Unique identifier of the sequence"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd74e5f0-b806-4cfd-b88c-841678879bf7",
+          "name": "Update Sequence",
+          "request": {
+            "name": "Update Sequence",
+            "description": {
+              "content": "Update an existing biological sequence record.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sequences",
+                ":sequenceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sequenceId",
+                  "description": "(Required) Unique identifier of the sequence"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6093b80c-72e6-40f9-8960-53686d2f0d6a",
+              "name": "Sequence updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences",
+                    ":sequenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sequenceId",
+                      "description": "(Required) Unique identifier of the sequence"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": 175,\n    \"key_1\": 3239,\n    \"key_2\": 6609,\n    \"key_3\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"chemical\",\n  \"sequence\": \"string\",\n  \"length\": 3074,\n  \"annotations\": [\n    {\n      \"name\": \"string\",\n      \"start\": 4062,\n      \"end\": 1905,\n      \"type\": \"string\",\n      \"strand\": \"reverse\"\n    },\n    {\n      \"name\": \"string\",\n      \"start\": 8223,\n      \"end\": 5251,\n      \"type\": \"string\",\n      \"strand\": \"reverse\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": 8347.60076734189,\n    \"key_2\": \"string\"\n  },\n  \"createdAt\": \"1992-01-10T09:10:04.184Z\",\n  \"updatedAt\": \"2021-06-03T06:23:36.309Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c754f74b-4402-4605-aa4e-d1dcbc3f66b3",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences",
+                    ":sequenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sequenceId",
+                      "description": "(Required) Unique identifier of the sequence"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": 175,\n    \"key_1\": 3239,\n    \"key_2\": 6609,\n    \"key_3\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c5cf3f2-ceae-4879-816a-4a76028b84bc",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences",
+                    ":sequenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sequenceId",
+                      "description": "(Required) Unique identifier of the sequence"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": 175,\n    \"key_1\": 3239,\n    \"key_2\": 6609,\n    \"key_3\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "85e3500b-875d-4e1b-b274-50e6f8e335e1",
+      "name": "Samples",
+      "description": {
+        "content": "Sample lifecycle management including barcoding and metadata",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "37aaecf1-faeb-4200-9e16-b053128e64c5",
+          "name": "Search Results by Barcode",
+          "request": {
+            "name": "Search Results by Barcode",
+            "description": {
+              "content": "Search for sample results across the workspace using a barcode identifier. Returns all associated records and experiment results linked to the specified barcode.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "results",
+                "search",
+                ":barcode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "barcode",
+                  "description": "(Required) Barcode identifier for the sample"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "20b7c55d-a72d-49ff-a897-7061d5a86d57",
+              "name": "Results found for barcode",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "results",
+                    "search",
+                    ":barcode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "barcode",
+                      "description": "(Required) Barcode identifier for the sample"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"barcode\": \"string\",\n  \"sampleId\": \"string\",\n  \"results\": [\n    {\n      \"labsheetId\": \"string\",\n      \"rowId\": \"string\",\n      \"data\": {\n        \"key_0\": 9941.988254973741\n      }\n    },\n    {\n      \"labsheetId\": \"string\",\n      \"rowId\": \"string\",\n      \"data\": {\n        \"key_0\": 1113.4253610602561,\n        \"key_1\": 8404\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a278644-d69f-472d-90a6-79daebe30bf3",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "results",
+                    "search",
+                    ":barcode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "barcode",
+                      "description": "(Required) Barcode identifier for the sample"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "062d20ad-2741-4d6a-8c17-f6aef461f2da",
+          "name": "Search Results by Sample ID",
+          "request": {
+            "name": "Search Results by Sample ID",
+            "description": {
+              "content": "Search for results across the workspace using a sample identifier. Returns all associated records, experiments, and data linked to the specified sample ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "results",
+                "search",
+                "sample",
+                ":sampleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sampleId",
+                  "description": "(Required) Internal sample identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2572b819-ee2b-441e-9eb5-ce8d3dd33927",
+              "name": "Results found for sample ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "results",
+                    "search",
+                    "sample",
+                    ":sampleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sampleId",
+                      "description": "(Required) Internal sample identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"barcode\": \"string\",\n  \"sampleId\": \"string\",\n  \"results\": [\n    {\n      \"labsheetId\": \"string\",\n      \"rowId\": \"string\",\n      \"data\": {\n        \"key_0\": 9941.988254973741\n      }\n    },\n    {\n      \"labsheetId\": \"string\",\n      \"rowId\": \"string\",\n      \"data\": {\n        \"key_0\": 1113.4253610602561,\n        \"key_1\": 8404\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee2d1d20-38d1-478a-bf76-85f867b891f5",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "results",
+                    "search",
+                    "sample",
+                    ":sampleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sampleId",
+                      "description": "(Required) Internal sample identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 7942\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "78035557-12ca-4202-bf5c-05de706726d0",
+      "name": "Authentication",
+      "description": {
+        "content": "API token management",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.scispot.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "77e54143-12f4-4e6b-884c-0a3f446dffbc",
+    "name": "Scispot API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Scispot REST API provides programmatic access to all features of the Scispot laboratory data platform. Scispot is an API-first Electronic Lab Notebook (ELN) and Laboratory Information Management System (LIMS) designed for modern life science and biotech labs. The API enables programmatic management of Labsheets (structured LIMS data), ELN protocols and experiments, Manifests (plates, boxes, racks), and biological Sequences. Every GUI action in Scispot is available through the API, supporting automation, computational biology workflows, instrument integration, and data pipeline development. Authenticated via personal API tokens with role-based access control (RBAC).\n\nContact Support:\n Name: Scispot Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

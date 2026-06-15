@@ -1,0 +1,486 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scispot API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Labsheets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Labsheets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/labsheets",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all Labsheets in the workspace. Labsheets are structured data tables that serve as the LIMS backbone of Scispot, used for registries, sample tracking, assay results, and inventory."
+        },
+        {
+          "info": {
+            "name": "Get Labsheet Rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/labsheets/:labsheetId/rows",
+            "params": [
+              {
+                "name": "labsheetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Labsheet"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows per page"
+              }
+            ]
+          },
+          "docs": "Retrieve all rows from a specific Labsheet. Returns structured data records with all column values for each row in the labsheet."
+        },
+        {
+          "info": {
+            "name": "Add Labsheet Row",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scispot.com/v1/labsheets/:labsheetId/rows",
+            "params": [
+              {
+                "name": "labsheetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Labsheet"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new row to a Labsheet. Accepts column values as key-value pairs matching the Labsheet schema. Supports barcode assignment and metadata attachment for sample tracking workflows."
+        },
+        {
+          "info": {
+            "name": "Get Labsheet Row",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/labsheets/:labsheetId/rows/:rowId",
+            "params": [
+              {
+                "name": "labsheetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Labsheet"
+              },
+              {
+                "name": "rowId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the row"
+              }
+            ]
+          },
+          "docs": "Retrieve a single row from a Labsheet by its unique row identifier."
+        },
+        {
+          "info": {
+            "name": "Update Labsheet Row",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scispot.com/v1/labsheets/:labsheetId/rows/:rowId",
+            "params": [
+              {
+                "name": "labsheetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Labsheet"
+              },
+              {
+                "name": "rowId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the row"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing row in a Labsheet. Accepts updated column values as key-value pairs. Only specified fields are updated."
+        },
+        {
+          "info": {
+            "name": "Delete Labsheet Row",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scispot.com/v1/labsheets/:labsheetId/rows/:rowId",
+            "params": [
+              {
+                "name": "labsheetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Labsheet"
+              },
+              {
+                "name": "rowId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the row"
+              }
+            ]
+          },
+          "docs": "Delete a row from a Labsheet by its unique identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Samples",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Results by Barcode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/results/search/:barcode",
+            "params": [
+              {
+                "name": "barcode",
+                "value": "SMP-2024-001",
+                "type": "path",
+                "description": "Barcode identifier for the sample"
+              }
+            ]
+          },
+          "docs": "Search for sample results across the workspace using a barcode identifier. Returns all associated records and experiment results linked to the specified barcode."
+        },
+        {
+          "info": {
+            "name": "Search Results by Sample ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/results/search/sample/:sampleId",
+            "params": [
+              {
+                "name": "sampleId",
+                "value": "",
+                "type": "path",
+                "description": "Internal sample identifier"
+              }
+            ]
+          },
+          "docs": "Search for results across the workspace using a sample identifier. Returns all associated records, experiments, and data linked to the specified sample ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ELN",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List ELN Notebooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/eln/notebooks",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of notebooks per page"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all Electronic Lab Notebook notebooks in the workspace. Notebooks contain protocols, experiments, and observations."
+        },
+        {
+          "info": {
+            "name": "List Notebook Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/eln/notebooks/:notebookId/entries",
+            "params": [
+              {
+                "name": "notebookId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the notebook"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries per page"
+              }
+            ]
+          },
+          "docs": "Retrieve all entries (experiments, observations, protocols) within a specific notebook."
+        },
+        {
+          "info": {
+            "name": "Create Notebook Entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scispot.com/v1/eln/notebooks/:notebookId/entries",
+            "params": [
+              {
+                "name": "notebookId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the notebook"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new entry in an ELN notebook. Entries can represent experiments, protocol executions, observations, or general notes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Manifests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Manifests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/manifests",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by container type (plate, box, rack)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of manifests per page"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all Manifests in the workspace. Manifests represent physical containers such as plates, boxes, racks, and other storage units used in laboratory workflows."
+        },
+        {
+          "info": {
+            "name": "Create Manifest",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scispot.com/v1/manifests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Manifest (plate, box, rack, or other container) in the workspace. Manifests track the physical location and organization of samples and materials in the lab."
+        },
+        {
+          "info": {
+            "name": "Get Manifest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/manifests/:manifestId",
+            "params": [
+              {
+                "name": "manifestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Manifest"
+              }
+            ]
+          },
+          "docs": "Retrieve a single Manifest by its unique identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sequences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Sequences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/sequences",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by sequence type"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of sequences per page"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all biological sequences in the workspace. Sequences include DNA, RNA, and protein sequences with associated metadata, annotations, and links to experimental records."
+        },
+        {
+          "info": {
+            "name": "Create Sequence",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scispot.com/v1/sequences",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new biological sequence to the workspace. Supports DNA, RNA, protein, and chemical structure sequences with full annotation support."
+        },
+        {
+          "info": {
+            "name": "Get Sequence",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/sequences/:sequenceId",
+            "params": [
+              {
+                "name": "sequenceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the sequence"
+              }
+            ]
+          },
+          "docs": "Retrieve a single biological sequence by its unique identifier."
+        },
+        {
+          "info": {
+            "name": "Update Sequence",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scispot.com/v1/sequences/:sequenceId",
+            "params": [
+              {
+                "name": "sequenceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the sequence"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing biological sequence record."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
