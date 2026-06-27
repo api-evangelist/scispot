@@ -44,7 +44,7 @@ apis:
         url: https://docs.scispot.com/
       - type: OpenAPI
         url: https://raw.githubusercontent.com/api-evangelist/scispot/refs/heads/main/openapi/scispot-openapi.yml
-      - type: Developer Portal
+      - type: DeveloperPortal
         url: https://www.scispot.com/compbio
       - type: SpectralRules
         url: https://raw.githubusercontent.com/api-evangelist/scispot/refs/heads/main/rules/scispot-rules.yml
@@ -62,7 +62,7 @@ common:
     url: https://www.scispot.com/
   - type: Documentation
     url: https://docs.scispot.com/
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://www.scispot.com/compbio
   - type: Integrations
     url: https://www.scispot.com/integrations
