@@ -56,6 +56,10 @@ apis:
       - type: Vocabulary
         url: https://raw.githubusercontent.com/api-evangelist/scispot/refs/heads/main/vocabulary/scispot-vocabulary.yml
 common:
+  - type: DomainSecurity
+    url: security/scispot-domain-security.yml
+  - type: Authentication
+    url: authentication/scispot-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/scispot
   - type: Website
@@ -66,6 +70,8 @@ common:
     url: https://www.scispot.com/compbio
   - type: Integrations
     url: https://www.scispot.com/integrations
+  - url: https://www.scispot.com/blog
+    type: Blog
 integrations:
   - name: labOSIcons
   - name: glue navigation

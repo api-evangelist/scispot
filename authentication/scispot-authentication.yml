@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/scispot-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: apiKey
+  description: Personal API token generated from Scispot Account Settings > Personal Tokens.
+    All API requests require this header.
+  sources:
+  - openapi/scispot-openapi.yml
