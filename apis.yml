@@ -56,6 +56,8 @@ apis:
       - type: Vocabulary
         url: https://raw.githubusercontent.com/api-evangelist/scispot/refs/heads/main/vocabulary/scispot-vocabulary.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/scispot-agentic-access.yml
   - type: DomainSecurity
     url: security/scispot-domain-security.yml
   - type: Authentication
