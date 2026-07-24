@@ -1,0 +1,245 @@
+openapi: 3.1.0
+info:
+  title: Scispot ELN API
+  description: The Scispot REST API provides programmatic access to all features of the Scispot laboratory data platform. Scispot is an API-first Electronic Lab Notebook (ELN) and Laboratory Information Management System (LIMS) designed for modern life science and biotech labs. The API enables programmatic management of Labsheets (structured LIMS data), ELN protocols and experiments, Manifests (plates, boxes, racks), and biological Sequences. Every GUI action in Scispot is available through the API, supporting automation, computational biology workflows, instrument integration, and data pipeline development. Authenticated via personal API tokens with role-based access control (RBAC).
+  version: 1.0.0
+  contact:
+    name: Scispot Developer Support
+    url: https://docs.scispot.com/
+  termsOfService: https://www.scispot.com/terms
+servers:
+- url: https://api.scispot.com/v1
+  description: Scispot Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: ELN
+  description: Electronic Lab Notebook protocols and experimental records
+paths:
+  /eln/notebooks:
+    get:
+      operationId: listNotebooks
+      summary: List ELN Notebooks
+      description: Retrieve a list of all Electronic Lab Notebook notebooks in the workspace. Notebooks contain protocols, experiments, and observations.
+      tags:
+      - ELN
+      parameters:
+      - name: page
+        in: query
+        description: Page number for pagination
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - name: limit
+        in: query
+        description: Number of notebooks per page
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          default: 20
+      responses:
+        '200':
+          description: List of notebooks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotebookListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /eln/notebooks/{notebookId}/entries:
+    get:
+      operationId: listNotebookEntries
+      summary: List Notebook Entries
+      description: Retrieve all entries (experiments, observations, protocols) within a specific notebook.
+      tags:
+      - ELN
+      parameters:
+      - name: notebookId
+        in: path
+        description: Unique identifier of the notebook
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Page number for pagination
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - name: limit
+        in: query
+        description: Number of entries per page
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          default: 20
+      responses:
+        '200':
+          description: List of notebook entries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotebookEntriesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createNotebookEntry
+      summary: Create Notebook Entry
+      description: Create a new entry in an ELN notebook. Entries can represent experiments, protocol executions, observations, or general notes.
+      tags:
+      - ELN
+      parameters:
+      - name: notebookId
+        in: path
+        description: Unique identifier of the notebook
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotebookEntryInput'
+      responses:
+        '201':
+          description: Notebook entry created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotebookEntry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: API key missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    NotebookEntriesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotebookEntry'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+    NotebookEntryInput:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Entry title
+        type:
+          type: string
+          enum:
+          - experiment
+          - protocol
+          - observation
+          - note
+        content:
+          type: object
+          description: Structured entry content
+          additionalProperties: true
+      required:
+      - title
+      - type
+    NotebookEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique entry identifier
+        notebookId:
+          type: string
+        title:
+          type: string
+          description: Entry title
+        type:
+          type: string
+          enum:
+          - experiment
+          - protocol
+          - observation
+          - note
+        content:
+          type: object
+          description: Structured entry content
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    NotebookListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notebook'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: integer
+          description: Error code
+    Notebook:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique notebook identifier
+        name:
+          type: string
+          description: Notebook name
+        description:
+          type: string
+        entryCount:
+          type: integer
+          description: Number of entries in the notebook
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apiKey
+      description: Personal API token generated from Scispot Account Settings > Personal Tokens. All API requests require this header.

@@ -1,0 +1,362 @@
+openapi: 3.1.0
+info:
+  title: Scispot ELN Labsheets API
+  description: The Scispot REST API provides programmatic access to all features of the Scispot laboratory data platform. Scispot is an API-first Electronic Lab Notebook (ELN) and Laboratory Information Management System (LIMS) designed for modern life science and biotech labs. The API enables programmatic management of Labsheets (structured LIMS data), ELN protocols and experiments, Manifests (plates, boxes, racks), and biological Sequences. Every GUI action in Scispot is available through the API, supporting automation, computational biology workflows, instrument integration, and data pipeline development. Authenticated via personal API tokens with role-based access control (RBAC).
+  version: 1.0.0
+  contact:
+    name: Scispot Developer Support
+    url: https://docs.scispot.com/
+  termsOfService: https://www.scispot.com/terms
+servers:
+- url: https://api.scispot.com/v1
+  description: Scispot Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Labsheets
+  description: LIMS-style structured data tables for registries, sample tracking, and assay data
+paths:
+  /labsheets:
+    get:
+      operationId: listLabsheets
+      summary: List Labsheets
+      description: Retrieve a list of all Labsheets in the workspace. Labsheets are structured data tables that serve as the LIMS backbone of Scispot, used for registries, sample tracking, assay results, and inventory.
+      tags:
+      - Labsheets
+      parameters:
+      - name: page
+        in: query
+        description: Page number for pagination
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: limit
+        in: query
+        description: Number of results per page
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+      responses:
+        '200':
+          description: List of labsheets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabsheetListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /labsheets/{labsheetId}/rows:
+    get:
+      operationId: getLabsheetRows
+      summary: Get Labsheet Rows
+      description: Retrieve all rows from a specific Labsheet. Returns structured data records with all column values for each row in the labsheet.
+      tags:
+      - Labsheets
+      parameters:
+      - name: labsheetId
+        in: path
+        description: Unique identifier of the Labsheet
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Page number for pagination
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - name: limit
+        in: query
+        description: Number of rows per page
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          default: 50
+      responses:
+        '200':
+          description: Labsheet rows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabsheetRowsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: addLabsheetRow
+      summary: Add Labsheet Row
+      description: Add a new row to a Labsheet. Accepts column values as key-value pairs matching the Labsheet schema. Supports barcode assignment and metadata attachment for sample tracking workflows.
+      tags:
+      - Labsheets
+      parameters:
+      - name: labsheetId
+        in: path
+        description: Unique identifier of the Labsheet
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabsheetRowInput'
+      responses:
+        '201':
+          description: Row added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabsheetRow'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /labsheets/{labsheetId}/rows/{rowId}:
+    get:
+      operationId: getLabsheetRow
+      summary: Get Labsheet Row
+      description: Retrieve a single row from a Labsheet by its unique row identifier.
+      tags:
+      - Labsheets
+      parameters:
+      - name: labsheetId
+        in: path
+        description: Unique identifier of the Labsheet
+        required: true
+        schema:
+          type: string
+      - name: rowId
+        in: path
+        description: Unique identifier of the row
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Labsheet row
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabsheetRow'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateLabsheetRow
+      summary: Update Labsheet Row
+      description: Update an existing row in a Labsheet. Accepts updated column values as key-value pairs. Only specified fields are updated.
+      tags:
+      - Labsheets
+      parameters:
+      - name: labsheetId
+        in: path
+        description: Unique identifier of the Labsheet
+        required: true
+        schema:
+          type: string
+      - name: rowId
+        in: path
+        description: Unique identifier of the row
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabsheetRowInput'
+      responses:
+        '200':
+          description: Row updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabsheetRow'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteLabsheetRow
+      summary: Delete Labsheet Row
+      description: Delete a row from a Labsheet by its unique identifier.
+      tags:
+      - Labsheets
+      parameters:
+      - name: labsheetId
+        in: path
+        description: Unique identifier of the Labsheet
+        required: true
+        schema:
+          type: string
+      - name: rowId
+        in: path
+        description: Unique identifier of the row
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Row deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    LabsheetRowInput:
+      type: object
+      description: Input for creating or updating a labsheet row
+      properties:
+        barcode:
+          type: string
+          description: Optional barcode for the row
+        data:
+          type: object
+          description: Column values as key-value pairs
+          additionalProperties: true
+      required:
+      - data
+    LabsheetRow:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique row identifier
+        labsheetId:
+          type: string
+          description: Parent labsheet identifier
+        barcode:
+          type: string
+          description: Barcode associated with this row
+        data:
+          type: object
+          description: Column values as key-value pairs
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Labsheet:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique labsheet identifier
+        name:
+          type: string
+          description: Name of the labsheet
+        description:
+          type: string
+          description: Description of the labsheet purpose
+        columns:
+          type: array
+          description: Column definitions for the labsheet
+          items:
+            $ref: '#/components/schemas/LabsheetColumn'
+        rowCount:
+          type: integer
+          description: Number of rows in the labsheet
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    LabsheetColumn:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Column name
+        type:
+          type: string
+          enum:
+          - text
+          - number
+          - date
+          - barcode
+          - lookup
+          - file
+          - formula
+          description: Column data type
+        required:
+          type: boolean
+          description: Whether this column is required
+    LabsheetListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Labsheet'
+        total:
+          type: integer
+          description: Total number of labsheets
+        page:
+          type: integer
+        limit:
+          type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: integer
+          description: Error code
+    LabsheetRowsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LabsheetRow'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+  responses:
+    Unauthorized:
+      description: API key missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters or body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apiKey
+      description: Personal API token generated from Scispot Account Settings > Personal Tokens. All API requests require this header.

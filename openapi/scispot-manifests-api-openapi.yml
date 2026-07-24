@@ -1,0 +1,230 @@
+openapi: 3.1.0
+info:
+  title: Scispot ELN Manifests API
+  description: The Scispot REST API provides programmatic access to all features of the Scispot laboratory data platform. Scispot is an API-first Electronic Lab Notebook (ELN) and Laboratory Information Management System (LIMS) designed for modern life science and biotech labs. The API enables programmatic management of Labsheets (structured LIMS data), ELN protocols and experiments, Manifests (plates, boxes, racks), and biological Sequences. Every GUI action in Scispot is available through the API, supporting automation, computational biology workflows, instrument integration, and data pipeline development. Authenticated via personal API tokens with role-based access control (RBAC).
+  version: 1.0.0
+  contact:
+    name: Scispot Developer Support
+    url: https://docs.scispot.com/
+  termsOfService: https://www.scispot.com/terms
+servers:
+- url: https://api.scispot.com/v1
+  description: Scispot Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Manifests
+  description: Physical container management including plates, boxes, and racks
+paths:
+  /manifests:
+    get:
+      operationId: listManifests
+      summary: List Manifests
+      description: Retrieve a list of all Manifests in the workspace. Manifests represent physical containers such as plates, boxes, racks, and other storage units used in laboratory workflows.
+      tags:
+      - Manifests
+      parameters:
+      - name: type
+        in: query
+        description: Filter by container type (plate, box, rack)
+        required: false
+        schema:
+          type: string
+          enum:
+          - plate
+          - box
+          - rack
+      - name: page
+        in: query
+        description: Page number for pagination
+        required: false
+        schema:
+          type: integer
+          default: 1
+      - name: limit
+        in: query
+        description: Number of manifests per page
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          default: 20
+      responses:
+        '200':
+          description: List of manifests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManifestListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createManifest
+      summary: Create Manifest
+      description: Create a new Manifest (plate, box, rack, or other container) in the workspace. Manifests track the physical location and organization of samples and materials in the lab.
+      tags:
+      - Manifests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManifestInput'
+      responses:
+        '201':
+          description: Manifest created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manifest'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /manifests/{manifestId}:
+    get:
+      operationId: getManifest
+      summary: Get Manifest
+      description: Retrieve a single Manifest by its unique identifier.
+      tags:
+      - Manifests
+      parameters:
+      - name: manifestId
+        in: path
+        description: Unique identifier of the Manifest
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Manifest details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manifest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: API key missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters or body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ManifestListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Manifest'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+    Manifest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique manifest identifier
+        name:
+          type: string
+          description: Manifest name
+        type:
+          type: string
+          enum:
+          - plate
+          - box
+          - rack
+          - other
+          description: Container type
+        barcode:
+          type: string
+          description: Physical barcode for this container
+        dimensions:
+          type: object
+          description: Physical dimensions (rows, columns for plates)
+          properties:
+            rows:
+              type: integer
+            columns:
+              type: integer
+        items:
+          type: array
+          description: Contents of the container
+          items:
+            type: object
+            properties:
+              position:
+                type: string
+              sampleId:
+                type: string
+              barcode:
+                type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    ManifestInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Manifest name
+        type:
+          type: string
+          enum:
+          - plate
+          - box
+          - rack
+          - other
+        barcode:
+          type: string
+          description: Optional physical barcode
+        dimensions:
+          type: object
+          properties:
+            rows:
+              type: integer
+            columns:
+              type: integer
+      required:
+      - name
+      - type
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: integer
+          description: Error code
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apiKey
+      description: Personal API token generated from Scispot Account Settings > Personal Tokens. All API requests require this header.

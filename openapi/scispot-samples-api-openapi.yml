@@ -1,0 +1,111 @@
+openapi: 3.1.0
+info:
+  title: Scispot ELN Samples API
+  description: The Scispot REST API provides programmatic access to all features of the Scispot laboratory data platform. Scispot is an API-first Electronic Lab Notebook (ELN) and Laboratory Information Management System (LIMS) designed for modern life science and biotech labs. The API enables programmatic management of Labsheets (structured LIMS data), ELN protocols and experiments, Manifests (plates, boxes, racks), and biological Sequences. Every GUI action in Scispot is available through the API, supporting automation, computational biology workflows, instrument integration, and data pipeline development. Authenticated via personal API tokens with role-based access control (RBAC).
+  version: 1.0.0
+  contact:
+    name: Scispot Developer Support
+    url: https://docs.scispot.com/
+  termsOfService: https://www.scispot.com/terms
+servers:
+- url: https://api.scispot.com/v1
+  description: Scispot Production API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Samples
+  description: Sample lifecycle management including barcoding and metadata
+paths:
+  /results/search/{barcode}:
+    get:
+      operationId: searchResultsByBarcode
+      summary: Search Results by Barcode
+      description: Search for sample results across the workspace using a barcode identifier. Returns all associated records and experiment results linked to the specified barcode.
+      tags:
+      - Samples
+      parameters:
+      - name: barcode
+        in: path
+        description: Barcode identifier for the sample
+        required: true
+        schema:
+          type: string
+        example: SMP-2024-001
+      responses:
+        '200':
+          description: Results found for barcode
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BarcodeSearchResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /results/search/sample/{sampleId}:
+    get:
+      operationId: searchResultsBySampleId
+      summary: Search Results by Sample ID
+      description: Search for results across the workspace using a sample identifier. Returns all associated records, experiments, and data linked to the specified sample ID.
+      tags:
+      - Samples
+      parameters:
+      - name: sampleId
+        in: path
+        description: Internal sample identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Results found for sample ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BarcodeSearchResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    BarcodeSearchResponse:
+      type: object
+      properties:
+        barcode:
+          type: string
+        sampleId:
+          type: string
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              labsheetId:
+                type: string
+              rowId:
+                type: string
+              data:
+                type: object
+                additionalProperties: true
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: integer
+          description: Error code
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apiKey
+      description: Personal API token generated from Scispot Account Settings > Personal Tokens. All API requests require this header.
