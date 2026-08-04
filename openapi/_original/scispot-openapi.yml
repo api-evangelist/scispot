@@ -1,0 +1,1069 @@
+openapi: 3.1.0
+info:
+  title: Scispot API
+  description: >-
+    The Scispot REST API provides programmatic access to all features of the
+    Scispot laboratory data platform. Scispot is an API-first Electronic Lab
+    Notebook (ELN) and Laboratory Information Management System (LIMS) designed
+    for modern life science and biotech labs. The API enables programmatic
+    management of Labsheets (structured LIMS data), ELN protocols and experiments,
+    Manifests (plates, boxes, racks), and biological Sequences. Every GUI action
+    in Scispot is available through the API, supporting automation, computational
+    biology workflows, instrument integration, and data pipeline development.
+    Authenticated via personal API tokens with role-based access control (RBAC).
+  version: 1.0.0
+  contact:
+    name: Scispot Developer Support
+    url: https://docs.scispot.com/
+  termsOfService: https://www.scispot.com/terms
+servers:
+  - url: https://api.scispot.com/v1
+    description: Scispot Production API
+tags:
+  - name: Labsheets
+    description: LIMS-style structured data tables for registries, sample tracking, and assay data
+  - name: ELN
+    description: Electronic Lab Notebook protocols and experimental records
+  - name: Manifests
+    description: Physical container management including plates, boxes, and racks
+  - name: Sequences
+    description: Biological sequence management for DNA, RNA, and protein sequences
+  - name: Samples
+    description: Sample lifecycle management including barcoding and metadata
+  - name: Authentication
+    description: API token management
+paths:
+  /labsheets:
+    get:
+      operationId: listLabsheets
+      summary: List Labsheets
+      description: >-
+        Retrieve a list of all Labsheets in the workspace. Labsheets are
+        structured data tables that serve as the LIMS backbone of Scispot,
+        used for registries, sample tracking, assay results, and inventory.
+      tags:
+        - Labsheets
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: limit
+          in: query
+          description: Number of results per page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: List of labsheets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabsheetListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /labsheets/{labsheetId}/rows:
+    get:
+      operationId: getLabsheetRows
+      summary: Get Labsheet Rows
+      description: >-
+        Retrieve all rows from a specific Labsheet. Returns structured data
+        records with all column values for each row in the labsheet.
+      tags:
+        - Labsheets
+      parameters:
+        - name: labsheetId
+          in: path
+          description: Unique identifier of the Labsheet
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Page number for pagination
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: Number of rows per page
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 50
+      responses:
+        '200':
+          description: Labsheet rows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabsheetRowsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: addLabsheetRow
+      summary: Add Labsheet Row
+      description: >-
+        Add a new row to a Labsheet. Accepts column values as key-value pairs
+        matching the Labsheet schema. Supports barcode assignment and metadata
+        attachment for sample tracking workflows.
+      tags:
+        - Labsheets
+      parameters:
+        - name: labsheetId
+          in: path
+          description: Unique identifier of the Labsheet
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabsheetRowInput'
+      responses:
+        '201':
+          description: Row added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabsheetRow'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /labsheets/{labsheetId}/rows/{rowId}:
+    get:
+      operationId: getLabsheetRow
+      summary: Get Labsheet Row
+      description: Retrieve a single row from a Labsheet by its unique row identifier.
+      tags:
+        - Labsheets
+      parameters:
+        - name: labsheetId
+          in: path
+          description: Unique identifier of the Labsheet
+          required: true
+          schema:
+            type: string
+        - name: rowId
+          in: path
+          description: Unique identifier of the row
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Labsheet row
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabsheetRow'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateLabsheetRow
+      summary: Update Labsheet Row
+      description: >-
+        Update an existing row in a Labsheet. Accepts updated column values
+        as key-value pairs. Only specified fields are updated.
+      tags:
+        - Labsheets
+      parameters:
+        - name: labsheetId
+          in: path
+          description: Unique identifier of the Labsheet
+          required: true
+          schema:
+            type: string
+        - name: rowId
+          in: path
+          description: Unique identifier of the row
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabsheetRowInput'
+      responses:
+        '200':
+          description: Row updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabsheetRow'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteLabsheetRow
+      summary: Delete Labsheet Row
+      description: Delete a row from a Labsheet by its unique identifier.
+      tags:
+        - Labsheets
+      parameters:
+        - name: labsheetId
+          in: path
+          description: Unique identifier of the Labsheet
+          required: true
+          schema:
+            type: string
+        - name: rowId
+          in: path
+          description: Unique identifier of the row
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Row deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /results/search/{barcode}:
+    get:
+      operationId: searchResultsByBarcode
+      summary: Search Results by Barcode
+      description: >-
+        Search for sample results across the workspace using a barcode
+        identifier. Returns all associated records and experiment results
+        linked to the specified barcode.
+      tags:
+        - Samples
+      parameters:
+        - name: barcode
+          in: path
+          description: Barcode identifier for the sample
+          required: true
+          schema:
+            type: string
+          example: SMP-2024-001
+      responses:
+        '200':
+          description: Results found for barcode
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BarcodeSearchResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /results/search/sample/{sampleId}:
+    get:
+      operationId: searchResultsBySampleId
+      summary: Search Results by Sample ID
+      description: >-
+        Search for results across the workspace using a sample identifier.
+        Returns all associated records, experiments, and data linked to the
+        specified sample ID.
+      tags:
+        - Samples
+      parameters:
+        - name: sampleId
+          in: path
+          description: Internal sample identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Results found for sample ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BarcodeSearchResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /eln/notebooks:
+    get:
+      operationId: listNotebooks
+      summary: List ELN Notebooks
+      description: >-
+        Retrieve a list of all Electronic Lab Notebook notebooks in the
+        workspace. Notebooks contain protocols, experiments, and observations.
+      tags:
+        - ELN
+      parameters:
+        - name: page
+          in: query
+          description: Page number for pagination
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: Number of notebooks per page
+          required: false
+          schema:
+            type: integer
+            maximum: 50
+            default: 20
+      responses:
+        '200':
+          description: List of notebooks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotebookListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /eln/notebooks/{notebookId}/entries:
+    get:
+      operationId: listNotebookEntries
+      summary: List Notebook Entries
+      description: >-
+        Retrieve all entries (experiments, observations, protocols) within
+        a specific notebook.
+      tags:
+        - ELN
+      parameters:
+        - name: notebookId
+          in: path
+          description: Unique identifier of the notebook
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Page number for pagination
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: Number of entries per page
+          required: false
+          schema:
+            type: integer
+            maximum: 50
+            default: 20
+      responses:
+        '200':
+          description: List of notebook entries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotebookEntriesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createNotebookEntry
+      summary: Create Notebook Entry
+      description: >-
+        Create a new entry in an ELN notebook. Entries can represent
+        experiments, protocol executions, observations, or general notes.
+      tags:
+        - ELN
+      parameters:
+        - name: notebookId
+          in: path
+          description: Unique identifier of the notebook
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotebookEntryInput'
+      responses:
+        '201':
+          description: Notebook entry created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotebookEntry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /manifests:
+    get:
+      operationId: listManifests
+      summary: List Manifests
+      description: >-
+        Retrieve a list of all Manifests in the workspace. Manifests represent
+        physical containers such as plates, boxes, racks, and other storage
+        units used in laboratory workflows.
+      tags:
+        - Manifests
+      parameters:
+        - name: type
+          in: query
+          description: Filter by container type (plate, box, rack)
+          required: false
+          schema:
+            type: string
+            enum:
+              - plate
+              - box
+              - rack
+        - name: page
+          in: query
+          description: Page number for pagination
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: Number of manifests per page
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: List of manifests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManifestListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createManifest
+      summary: Create Manifest
+      description: >-
+        Create a new Manifest (plate, box, rack, or other container) in the
+        workspace. Manifests track the physical location and organization of
+        samples and materials in the lab.
+      tags:
+        - Manifests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManifestInput'
+      responses:
+        '201':
+          description: Manifest created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manifest'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /manifests/{manifestId}:
+    get:
+      operationId: getManifest
+      summary: Get Manifest
+      description: Retrieve a single Manifest by its unique identifier.
+      tags:
+        - Manifests
+      parameters:
+        - name: manifestId
+          in: path
+          description: Unique identifier of the Manifest
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Manifest details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manifest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /sequences:
+    get:
+      operationId: listSequences
+      summary: List Sequences
+      description: >-
+        Retrieve a list of all biological sequences in the workspace. Sequences
+        include DNA, RNA, and protein sequences with associated metadata,
+        annotations, and links to experimental records.
+      tags:
+        - Sequences
+      parameters:
+        - name: type
+          in: query
+          description: Filter by sequence type
+          required: false
+          schema:
+            type: string
+            enum:
+              - dna
+              - rna
+              - protein
+              - chemical
+        - name: page
+          in: query
+          description: Page number for pagination
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: Number of sequences per page
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: List of sequences
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SequenceListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSequence
+      summary: Create Sequence
+      description: >-
+        Add a new biological sequence to the workspace. Supports DNA, RNA,
+        protein, and chemical structure sequences with full annotation support.
+      tags:
+        - Sequences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SequenceInput'
+      responses:
+        '201':
+          description: Sequence created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sequence'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /sequences/{sequenceId}:
+    get:
+      operationId: getSequence
+      summary: Get Sequence
+      description: Retrieve a single biological sequence by its unique identifier.
+      tags:
+        - Sequences
+      parameters:
+        - name: sequenceId
+          in: path
+          description: Unique identifier of the sequence
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Sequence details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sequence'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateSequence
+      summary: Update Sequence
+      description: Update an existing biological sequence record.
+      tags:
+        - Sequences
+      parameters:
+        - name: sequenceId
+          in: path
+          description: Unique identifier of the sequence
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SequenceInput'
+      responses:
+        '200':
+          description: Sequence updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sequence'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apiKey
+      description: >-
+        Personal API token generated from Scispot Account Settings > Personal
+        Tokens. All API requests require this header.
+  responses:
+    Unauthorized:
+      description: API key missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters or body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    LabsheetListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Labsheet'
+        total:
+          type: integer
+          description: Total number of labsheets
+        page:
+          type: integer
+        limit:
+          type: integer
+    Labsheet:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique labsheet identifier
+        name:
+          type: string
+          description: Name of the labsheet
+        description:
+          type: string
+          description: Description of the labsheet purpose
+        columns:
+          type: array
+          description: Column definitions for the labsheet
+          items:
+            $ref: '#/components/schemas/LabsheetColumn'
+        rowCount:
+          type: integer
+          description: Number of rows in the labsheet
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    LabsheetColumn:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Column name
+        type:
+          type: string
+          enum:
+            - text
+            - number
+            - date
+            - barcode
+            - lookup
+            - file
+            - formula
+          description: Column data type
+        required:
+          type: boolean
+          description: Whether this column is required
+    LabsheetRowsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LabsheetRow'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+    LabsheetRow:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique row identifier
+        labsheetId:
+          type: string
+          description: Parent labsheet identifier
+        barcode:
+          type: string
+          description: Barcode associated with this row
+        data:
+          type: object
+          description: Column values as key-value pairs
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    LabsheetRowInput:
+      type: object
+      description: Input for creating or updating a labsheet row
+      properties:
+        barcode:
+          type: string
+          description: Optional barcode for the row
+        data:
+          type: object
+          description: Column values as key-value pairs
+          additionalProperties: true
+      required:
+        - data
+    BarcodeSearchResponse:
+      type: object
+      properties:
+        barcode:
+          type: string
+        sampleId:
+          type: string
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              labsheetId:
+                type: string
+              rowId:
+                type: string
+              data:
+                type: object
+                additionalProperties: true
+    NotebookListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notebook'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+    Notebook:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique notebook identifier
+        name:
+          type: string
+          description: Notebook name
+        description:
+          type: string
+        entryCount:
+          type: integer
+          description: Number of entries in the notebook
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    NotebookEntriesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotebookEntry'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+    NotebookEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique entry identifier
+        notebookId:
+          type: string
+        title:
+          type: string
+          description: Entry title
+        type:
+          type: string
+          enum:
+            - experiment
+            - protocol
+            - observation
+            - note
+        content:
+          type: object
+          description: Structured entry content
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    NotebookEntryInput:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Entry title
+        type:
+          type: string
+          enum:
+            - experiment
+            - protocol
+            - observation
+            - note
+        content:
+          type: object
+          description: Structured entry content
+          additionalProperties: true
+      required:
+        - title
+        - type
+    ManifestListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Manifest'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+    Manifest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique manifest identifier
+        name:
+          type: string
+          description: Manifest name
+        type:
+          type: string
+          enum:
+            - plate
+            - box
+            - rack
+            - other
+          description: Container type
+        barcode:
+          type: string
+          description: Physical barcode for this container
+        dimensions:
+          type: object
+          description: Physical dimensions (rows, columns for plates)
+          properties:
+            rows:
+              type: integer
+            columns:
+              type: integer
+        items:
+          type: array
+          description: Contents of the container
+          items:
+            type: object
+            properties:
+              position:
+                type: string
+              sampleId:
+                type: string
+              barcode:
+                type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    ManifestInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Manifest name
+        type:
+          type: string
+          enum:
+            - plate
+            - box
+            - rack
+            - other
+        barcode:
+          type: string
+          description: Optional physical barcode
+        dimensions:
+          type: object
+          properties:
+            rows:
+              type: integer
+            columns:
+              type: integer
+      required:
+        - name
+        - type
+    SequenceListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sequence'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+    Sequence:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique sequence identifier
+        name:
+          type: string
+          description: Sequence name or identifier
+        type:
+          type: string
+          enum:
+            - dna
+            - rna
+            - protein
+            - chemical
+          description: Sequence type
+        sequence:
+          type: string
+          description: Raw sequence string
+        length:
+          type: integer
+          description: Sequence length
+        annotations:
+          type: array
+          description: Sequence annotations and features
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              start:
+                type: integer
+              end:
+                type: integer
+              type:
+                type: string
+              strand:
+                type: string
+                enum:
+                  - forward
+                  - reverse
+        metadata:
+          type: object
+          description: Additional metadata
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    SequenceInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Sequence name or identifier
+        type:
+          type: string
+          enum:
+            - dna
+            - rna
+            - protein
+            - chemical
+        sequence:
+          type: string
+          description: Raw sequence string
+        annotations:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              start:
+                type: integer
+              end:
+                type: integer
+              type:
+                type: string
+        metadata:
+          type: object
+          additionalProperties: true
+      required:
+        - name
+        - type
+        - sequence
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: integer
+          description: Error code
+security:
+  - ApiKeyAuth: []

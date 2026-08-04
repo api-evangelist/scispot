@@ -1,0 +1,22 @@
+{
+  "provider": "scispot",
+  "sources": [
+    "scispot-eln-api-openapi.yml",
+    "scispot-labsheets-api-openapi.yml",
+    "scispot-manifests-api-openapi.yml",
+    "scispot-samples-api-openapi.yml",
+    "scispot-sequences-api-openapi.yml"
+  ],
+  "outputs": [
+    "scispot-eln-api-openapi.yml",
+    "scispot-labsheets-api-openapi.yml",
+    "scispot-manifests-api-openapi.yml",
+    "scispot-samples-api-openapi.yml",
+    "scispot-sequences-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
