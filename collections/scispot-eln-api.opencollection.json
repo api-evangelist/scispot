@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scispot ELN API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ELN",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List ELN Notebooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/eln/notebooks",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of notebooks per page"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all Electronic Lab Notebook notebooks in the workspace. Notebooks contain protocols, experiments, and observations."
+        },
+        {
+          "info": {
+            "name": "List Notebook Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/eln/notebooks/:notebookId/entries",
+            "params": [
+              {
+                "name": "notebookId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the notebook"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries per page"
+              }
+            ]
+          },
+          "docs": "Retrieve all entries (experiments, observations, protocols) within a specific notebook."
+        },
+        {
+          "info": {
+            "name": "Create Notebook Entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scispot.com/v1/eln/notebooks/:notebookId/entries",
+            "params": [
+              {
+                "name": "notebookId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the notebook"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new entry in an ELN notebook. Entries can represent experiments, protocol executions, observations, or general notes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scispot ELN Manifests API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Manifests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Manifests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/manifests",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by container type (plate, box, rack)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of manifests per page"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all Manifests in the workspace. Manifests represent physical containers such as plates, boxes, racks, and other storage units used in laboratory workflows."
+        },
+        {
+          "info": {
+            "name": "Create Manifest",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scispot.com/v1/manifests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Manifest (plate, box, rack, or other container) in the workspace. Manifests track the physical location and organization of samples and materials in the lab."
+        },
+        {
+          "info": {
+            "name": "Get Manifest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/manifests/:manifestId",
+            "params": [
+              {
+                "name": "manifestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Manifest"
+              }
+            ]
+          },
+          "docs": "Retrieve a single Manifest by its unique identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

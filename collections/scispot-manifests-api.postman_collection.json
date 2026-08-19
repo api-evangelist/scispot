@@ -1,0 +1,564 @@
+{
+  "item": [
+    {
+      "id": "61be3b01-1145-48af-bb89-598f9ebb8dd3",
+      "name": "Manifests",
+      "description": {
+        "content": "Physical container management including plates, boxes, and racks",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "02b7dd46-05aa-4d6b-848e-849ba588ce43",
+          "name": "List Manifests",
+          "request": {
+            "name": "List Manifests",
+            "description": {
+              "content": "Retrieve a list of all Manifests in the workspace. Manifests represent physical containers such as plates, boxes, racks, and other storage units used in laboratory workflows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "manifests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by container type (plate, box, rack)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of manifests per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2255b038-1188-43f9-aca6-720cc9bfd282",
+              "name": "List of manifests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"plate\",\n      \"barcode\": \"string\",\n      \"dimensions\": {\n        \"rows\": 4693,\n        \"columns\": 1256\n      },\n      \"items\": [\n        {\n          \"position\": \"string\",\n          \"sampleId\": \"string\",\n          \"barcode\": \"string\"\n        },\n        {\n          \"position\": \"string\",\n          \"sampleId\": \"string\",\n          \"barcode\": \"string\"\n        }\n      ],\n      \"createdAt\": \"1953-08-15T04:18:44.233Z\",\n      \"updatedAt\": \"2008-10-05T00:03:45.821Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"plate\",\n      \"barcode\": \"string\",\n      \"dimensions\": {\n        \"rows\": 1310,\n        \"columns\": 4839\n      },\n      \"items\": [\n        {\n          \"position\": \"string\",\n          \"sampleId\": \"string\",\n          \"barcode\": \"string\"\n        },\n        {\n          \"position\": \"string\",\n          \"sampleId\": \"string\",\n          \"barcode\": \"string\"\n        }\n      ],\n      \"createdAt\": \"1988-07-01T20:34:35.679Z\",\n      \"updatedAt\": \"1995-09-30T13:43:31.403Z\"\n    }\n  ],\n  \"total\": 770,\n  \"page\": 7843,\n  \"limit\": 8152\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76d2f344-8ede-414a-a0fc-2097337c97ae",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 2389\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03961427-d204-44f6-9f1b-dd9c2407cda2",
+          "name": "Create Manifest",
+          "request": {
+            "name": "Create Manifest",
+            "description": {
+              "content": "Create a new Manifest (plate, box, rack, or other container) in the workspace. Manifests track the physical location and organization of samples and materials in the lab.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "manifests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"dimensions\": {\n    \"rows\": \"<integer>\",\n    \"columns\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "31ae88f4-dad1-43ca-8d0e-2132f57cf4e3",
+              "name": "Manifest created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"dimensions\": {\n    \"rows\": \"<integer>\",\n    \"columns\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"box\",\n  \"barcode\": \"string\",\n  \"dimensions\": {\n    \"rows\": 1427,\n    \"columns\": 2245\n  },\n  \"items\": [\n    {\n      \"position\": \"string\",\n      \"sampleId\": \"string\",\n      \"barcode\": \"string\"\n    },\n    {\n      \"position\": \"string\",\n      \"sampleId\": \"string\",\n      \"barcode\": \"string\"\n    }\n  ],\n  \"createdAt\": \"1978-06-21T01:08:43.130Z\",\n  \"updatedAt\": \"2009-12-23T09:57:14.037Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c93b251-25f7-40f6-ae3e-b8150ba4923d",
+              "name": "Invalid request parameters or body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"dimensions\": {\n    \"rows\": \"<integer>\",\n    \"columns\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 2389\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78f874e4-5b95-44f4-a405-9fa06fadbe00",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"barcode\": \"<string>\",\n  \"dimensions\": {\n    \"rows\": \"<integer>\",\n    \"columns\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 2389\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84a726c1-ac68-4065-8537-ae566c9cd6b9",
+          "name": "Get Manifest",
+          "request": {
+            "name": "Get Manifest",
+            "description": {
+              "content": "Retrieve a single Manifest by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "manifests",
+                ":manifestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "manifestId",
+                  "description": "(Required) Unique identifier of the Manifest"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9a8ccaa7-bf09-4332-bb65-59bc735c8efb",
+              "name": "Manifest details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests",
+                    ":manifestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "manifestId",
+                      "description": "(Required) Unique identifier of the Manifest"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"box\",\n  \"barcode\": \"string\",\n  \"dimensions\": {\n    \"rows\": 1427,\n    \"columns\": 2245\n  },\n  \"items\": [\n    {\n      \"position\": \"string\",\n      \"sampleId\": \"string\",\n      \"barcode\": \"string\"\n    },\n    {\n      \"position\": \"string\",\n      \"sampleId\": \"string\",\n      \"barcode\": \"string\"\n    }\n  ],\n  \"createdAt\": \"1978-06-21T01:08:43.130Z\",\n  \"updatedAt\": \"2009-12-23T09:57:14.037Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1ef349f-54d0-46d5-900a-6f2c657463f8",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifests",
+                    ":manifestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "manifestId",
+                      "description": "(Required) Unique identifier of the Manifest"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 2389\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.scispot.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "313f34b5-3430-4271-a182-a77ec691b8c4",
+    "name": "Scispot ELN Manifests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Scispot REST API provides programmatic access to all features of the Scispot laboratory data platform. Scispot is an API-first Electronic Lab Notebook (ELN) and Laboratory Information Management System (LIMS) designed for modern life science and biotech labs. The API enables programmatic management of Labsheets (structured LIMS data), ELN protocols and experiments, Manifests (plates, boxes, racks), and biological Sequences. Every GUI action in Scispot is available through the API, supporting automation, computational biology workflows, instrument integration, and data pipeline development. Authenticated via personal API tokens with role-based access control (RBAC).\n\nContact Support:\n Name: Scispot Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

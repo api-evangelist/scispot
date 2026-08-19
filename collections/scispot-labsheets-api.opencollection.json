@@ -1,0 +1,184 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scispot ELN Labsheets API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Labsheets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Labsheets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/labsheets",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all Labsheets in the workspace. Labsheets are structured data tables that serve as the LIMS backbone of Scispot, used for registries, sample tracking, assay results, and inventory."
+        },
+        {
+          "info": {
+            "name": "Get Labsheet Rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/labsheets/:labsheetId/rows",
+            "params": [
+              {
+                "name": "labsheetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Labsheet"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows per page"
+              }
+            ]
+          },
+          "docs": "Retrieve all rows from a specific Labsheet. Returns structured data records with all column values for each row in the labsheet."
+        },
+        {
+          "info": {
+            "name": "Add Labsheet Row",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.scispot.com/v1/labsheets/:labsheetId/rows",
+            "params": [
+              {
+                "name": "labsheetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Labsheet"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new row to a Labsheet. Accepts column values as key-value pairs matching the Labsheet schema. Supports barcode assignment and metadata attachment for sample tracking workflows."
+        },
+        {
+          "info": {
+            "name": "Get Labsheet Row",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/labsheets/:labsheetId/rows/:rowId",
+            "params": [
+              {
+                "name": "labsheetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Labsheet"
+              },
+              {
+                "name": "rowId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the row"
+              }
+            ]
+          },
+          "docs": "Retrieve a single row from a Labsheet by its unique row identifier."
+        },
+        {
+          "info": {
+            "name": "Update Labsheet Row",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.scispot.com/v1/labsheets/:labsheetId/rows/:rowId",
+            "params": [
+              {
+                "name": "labsheetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Labsheet"
+              },
+              {
+                "name": "rowId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the row"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing row in a Labsheet. Accepts updated column values as key-value pairs. Only specified fields are updated."
+        },
+        {
+          "info": {
+            "name": "Delete Labsheet Row",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.scispot.com/v1/labsheets/:labsheetId/rows/:rowId",
+            "params": [
+              {
+                "name": "labsheetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the Labsheet"
+              },
+              {
+                "name": "rowId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the row"
+              }
+            ]
+          },
+          "docs": "Delete a row from a Labsheet by its unique identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

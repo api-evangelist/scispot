@@ -1,0 +1,801 @@
+{
+  "item": [
+    {
+      "id": "f16eb9be-310b-4812-9d1e-b8a966660a87",
+      "name": "Sequences",
+      "description": {
+        "content": "Biological sequence management for DNA, RNA, and protein sequences",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "84fd3ea2-9f9e-41ee-9186-df999727a336",
+          "name": "List Sequences",
+          "request": {
+            "name": "List Sequences",
+            "description": {
+              "content": "Retrieve a list of all biological sequences in the workspace. Sequences include DNA, RNA, and protein sequences with associated metadata, annotations, and links to experimental records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sequences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by sequence type"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of sequences per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da092836-cdb3-46bb-8a0f-d753d248bf45",
+              "name": "List of sequences",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"protein\",\n      \"sequence\": \"string\",\n      \"length\": 5453,\n      \"annotations\": [\n        {\n          \"name\": \"string\",\n          \"start\": 3500,\n          \"end\": 7021,\n          \"type\": \"string\",\n          \"strand\": \"reverse\"\n        },\n        {\n          \"name\": \"string\",\n          \"start\": 6734,\n          \"end\": 9153,\n          \"type\": \"string\",\n          \"strand\": \"reverse\"\n        }\n      ],\n      \"metadata\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"createdAt\": \"1973-06-19T12:20:55.835Z\",\n      \"updatedAt\": \"1950-03-04T08:43:13.896Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"rna\",\n      \"sequence\": \"string\",\n      \"length\": 8052,\n      \"annotations\": [\n        {\n          \"name\": \"string\",\n          \"start\": 5392,\n          \"end\": 1364,\n          \"type\": \"string\",\n          \"strand\": \"forward\"\n        },\n        {\n          \"name\": \"string\",\n          \"start\": 2479,\n          \"end\": 5766,\n          \"type\": \"string\",\n          \"strand\": \"reverse\"\n        }\n      ],\n      \"metadata\": {\n        \"key_0\": 7361\n      },\n      \"createdAt\": \"1969-09-02T21:41:49.918Z\",\n      \"updatedAt\": \"2006-08-29T15:46:49.276Z\"\n    }\n  ],\n  \"total\": 4666,\n  \"page\": 1671,\n  \"limit\": 567\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "363cb72a-0472-4194-99a9-f2eba4fca560",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 5483\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8176ec6a-7248-4088-ac8c-549b33442e46",
+          "name": "Create Sequence",
+          "request": {
+            "name": "Create Sequence",
+            "description": {
+              "content": "Add a new biological sequence to the workspace. Supports DNA, RNA, protein, and chemical structure sequences with full annotation support.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sequences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": 3906.3571928240603\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a39d12c0-79d1-4655-b9cb-d21198d74e74",
+              "name": "Sequence created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"rna\",\n  \"sequence\": \"string\",\n  \"length\": 2081,\n  \"annotations\": [\n    {\n      \"name\": \"string\",\n      \"start\": 7917,\n      \"end\": 6641,\n      \"type\": \"string\",\n      \"strand\": \"forward\"\n    },\n    {\n      \"name\": \"string\",\n      \"start\": 8453,\n      \"end\": 3887,\n      \"type\": \"string\",\n      \"strand\": \"reverse\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"createdAt\": \"1988-06-11T23:00:16.629Z\",\n  \"updatedAt\": \"2014-01-09T21:32:20.553Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7a35c8e-0aa6-4962-b4f5-6c763a0e09a0",
+              "name": "Invalid request parameters or body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 5483\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b96f9204-e20f-44bc-bd3f-bd90f5a3dfb4",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 5483\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76102112-96da-4ba7-bdf8-58dd817dd6a6",
+          "name": "Get Sequence",
+          "request": {
+            "name": "Get Sequence",
+            "description": {
+              "content": "Retrieve a single biological sequence by its unique identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sequences",
+                ":sequenceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sequenceId",
+                  "description": "(Required) Unique identifier of the sequence"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bcbabe1c-d0a3-49ce-95a5-c2403632a010",
+              "name": "Sequence details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences",
+                    ":sequenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sequenceId",
+                      "description": "(Required) Unique identifier of the sequence"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"rna\",\n  \"sequence\": \"string\",\n  \"length\": 2081,\n  \"annotations\": [\n    {\n      \"name\": \"string\",\n      \"start\": 7917,\n      \"end\": 6641,\n      \"type\": \"string\",\n      \"strand\": \"forward\"\n    },\n    {\n      \"name\": \"string\",\n      \"start\": 8453,\n      \"end\": 3887,\n      \"type\": \"string\",\n      \"strand\": \"reverse\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"createdAt\": \"1988-06-11T23:00:16.629Z\",\n  \"updatedAt\": \"2014-01-09T21:32:20.553Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71d958ec-1d5d-4bfa-ab77-59d517e9bf01",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences",
+                    ":sequenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sequenceId",
+                      "description": "(Required) Unique identifier of the sequence"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 5483\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f4e1bfd-a372-415f-98d6-ffe27aac4f43",
+          "name": "Update Sequence",
+          "request": {
+            "name": "Update Sequence",
+            "description": {
+              "content": "Update an existing biological sequence record.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sequences",
+                ":sequenceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sequenceId",
+                  "description": "(Required) Unique identifier of the sequence"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": 3906.3571928240603\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "541d58c8-aa8f-404c-9882-b998aa656cd1",
+              "name": "Sequence updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences",
+                    ":sequenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sequenceId",
+                      "description": "(Required) Unique identifier of the sequence"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"rna\",\n  \"sequence\": \"string\",\n  \"length\": 2081,\n  \"annotations\": [\n    {\n      \"name\": \"string\",\n      \"start\": 7917,\n      \"end\": 6641,\n      \"type\": \"string\",\n      \"strand\": \"forward\"\n    },\n    {\n      \"name\": \"string\",\n      \"start\": 8453,\n      \"end\": 3887,\n      \"type\": \"string\",\n      \"strand\": \"reverse\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"createdAt\": \"1988-06-11T23:00:16.629Z\",\n  \"updatedAt\": \"2014-01-09T21:32:20.553Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d73af414-1aec-4d65-ace8-13321fbaba27",
+              "name": "API key missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences",
+                    ":sequenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sequenceId",
+                      "description": "(Required) Unique identifier of the sequence"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 5483\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e73e47bc-08cf-424b-bb2d-050349004d7b",
+              "name": "Requested resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sequences",
+                    ":sequenceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sequenceId",
+                      "description": "(Required) Unique identifier of the sequence"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sequence\": \"<string>\",\n  \"annotations\": [\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"start\": \"<integer>\",\n      \"end\": \"<integer>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": {\n    \"key_0\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"code\": 5483\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.scispot.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7e2e19f7-1f69-464c-be12-bc0f8bd87176",
+    "name": "Scispot ELN Sequences API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Scispot REST API provides programmatic access to all features of the Scispot laboratory data platform. Scispot is an API-first Electronic Lab Notebook (ELN) and Laboratory Information Management System (LIMS) designed for modern life science and biotech labs. The API enables programmatic management of Labsheets (structured LIMS data), ELN protocols and experiments, Manifests (plates, boxes, racks), and biological Sequences. Every GUI action in Scispot is available through the API, supporting automation, computational biology workflows, instrument integration, and data pipeline development. Authenticated via personal API tokens with role-based access control (RBAC).\n\nContact Support:\n Name: Scispot Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

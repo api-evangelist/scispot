@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scispot ELN Samples API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apiKey",
+      "value": "{{apiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Samples",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Results by Barcode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/results/search/:barcode",
+            "params": [
+              {
+                "name": "barcode",
+                "value": "SMP-2024-001",
+                "type": "path",
+                "description": "Barcode identifier for the sample"
+              }
+            ]
+          },
+          "docs": "Search for sample results across the workspace using a barcode identifier. Returns all associated records and experiment results linked to the specified barcode."
+        },
+        {
+          "info": {
+            "name": "Search Results by Sample ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.scispot.com/v1/results/search/sample/:sampleId",
+            "params": [
+              {
+                "name": "sampleId",
+                "value": "",
+                "type": "path",
+                "description": "Internal sample identifier"
+              }
+            ]
+          },
+          "docs": "Search for results across the workspace using a sample identifier. Returns all associated records, experiments, and data linked to the specified sample ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
