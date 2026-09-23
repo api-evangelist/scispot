@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Scispot ELN Manifests API
-  description: The Scispot REST API provides programmatic access to all features of the Scispot laboratory data platform. Scispot is an API-first Electronic Lab Notebook (ELN) and Laboratory Information Management System (LIMS) designed for modern life science and biotech labs. The API enables programmatic management of Labsheets (structured LIMS data), ELN protocols and experiments, Manifests (plates, boxes, racks), and biological Sequences. Every GUI action in Scispot is available through the API, supporting automation, computational biology workflows, instrument integration, and data pipeline development. Authenticated via personal API tokens with role-based access control (RBAC).
+  title: Scispot Manifests API
+  description: The Scispot REST API provides programmatic access to all features of the Scispot laboratory data platform.
   version: 1.0.0
   contact:
     name: Scispot Developer Support
@@ -125,19 +125,32 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ManifestListResponse:
+    ManifestInput:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Manifest'
-        total:
-          type: integer
-        page:
-          type: integer
-        limit:
-          type: integer
+        name:
+          type: string
+          description: Manifest name
+        type:
+          type: string
+          enum:
+          - plate
+          - box
+          - rack
+          - other
+        barcode:
+          type: string
+          description: Optional physical barcode
+        dimensions:
+          type: object
+          properties:
+            rows:
+              type: integer
+            columns:
+              type: integer
+      required:
+      - name
+      - type
     Manifest:
       type: object
       properties:
@@ -184,32 +197,19 @@ components:
         updatedAt:
           type: string
           format: date-time
-    ManifestInput:
+    ManifestListResponse:
       type: object
       properties:
-        name:
-          type: string
-          description: Manifest name
-        type:
-          type: string
-          enum:
-          - plate
-          - box
-          - rack
-          - other
-        barcode:
-          type: string
-          description: Optional physical barcode
-        dimensions:
-          type: object
-          properties:
-            rows:
-              type: integer
-            columns:
-              type: integer
-      required:
-      - name
-      - type
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Manifest'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
     ErrorResponse:
       type: object
       properties:

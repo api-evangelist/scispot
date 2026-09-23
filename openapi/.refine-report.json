@@ -1,11 +1,7 @@
 {
   "provider": "scispot",
   "sources": [
-    "scispot-eln-api-openapi.yml",
-    "scispot-labsheets-api-openapi.yml",
-    "scispot-manifests-api-openapi.yml",
-    "scispot-samples-api-openapi.yml",
-    "scispot-sequences-api-openapi.yml"
+    "_original/scispot-openapi.yml"
   ],
   "outputs": [
     "scispot-eln-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "scispot-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "scispot-eln-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scispot-labsheets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scispot-manifests-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scispot-samples-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scispot-sequences-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
