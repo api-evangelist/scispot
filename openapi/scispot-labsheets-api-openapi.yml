@@ -215,91 +215,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    LabsheetColumn:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Column name
-        type:
-          type: string
-          enum:
-          - text
-          - number
-          - date
-          - barcode
-          - lookup
-          - file
-          - formula
-          description: Column data type
-        required:
-          type: boolean
-          description: Whether this column is required
-    Labsheet:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique labsheet identifier
-        name:
-          type: string
-          description: Name of the labsheet
-        description:
-          type: string
-          description: Description of the labsheet purpose
-        columns:
-          type: array
-          description: Column definitions for the labsheet
-          items:
-            $ref: '#/components/schemas/LabsheetColumn'
-        rowCount:
-          type: integer
-          description: Number of rows in the labsheet
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-    LabsheetListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Labsheet'
-        total:
-          type: integer
-          description: Total number of labsheets
-        page:
-          type: integer
-        limit:
-          type: integer
-    LabsheetRowsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LabsheetRow'
-        total:
-          type: integer
-        page:
-          type: integer
-        limit:
-          type: integer
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error type
-        message:
-          type: string
-          description: Human-readable error message
-        code:
-          type: integer
-          description: Error code
     LabsheetRowInput:
       type: object
       description: Input for creating or updating a labsheet row
@@ -335,6 +250,91 @@ components:
         updatedAt:
           type: string
           format: date-time
+    Labsheet:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique labsheet identifier
+        name:
+          type: string
+          description: Name of the labsheet
+        description:
+          type: string
+          description: Description of the labsheet purpose
+        columns:
+          type: array
+          description: Column definitions for the labsheet
+          items:
+            $ref: '#/components/schemas/LabsheetColumn'
+        rowCount:
+          type: integer
+          description: Number of rows in the labsheet
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    LabsheetRowsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LabsheetRow'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+    LabsheetColumn:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Column name
+        type:
+          type: string
+          enum:
+          - text
+          - number
+          - date
+          - barcode
+          - lookup
+          - file
+          - formula
+          description: Column data type
+        required:
+          type: boolean
+          description: Whether this column is required
+    LabsheetListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Labsheet'
+        total:
+          type: integer
+          description: Total number of labsheets
+        page:
+          type: integer
+        limit:
+          type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: integer
+          description: Error code
   responses:
     Unauthorized:
       description: API key missing or invalid

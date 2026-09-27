@@ -136,26 +136,56 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: API key missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request parameters or body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Requested resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    SequenceInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Sequence name or identifier
+        type:
+          type: string
+          enum:
+          - dna
+          - rna
+          - protein
+          - chemical
+        sequence:
+          type: string
+          description: Raw sequence string
+        annotations:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              start:
+                type: integer
+              end:
+                type: integer
+              type:
+                type: string
+        metadata:
+          type: object
+          additionalProperties: true
+      required:
+      - name
+      - type
+      - sequence
+    SequenceListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sequence'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
     Sequence:
       type: object
       properties:
@@ -208,55 +238,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-    SequenceListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Sequence'
-        total:
-          type: integer
-        page:
-          type: integer
-        limit:
-          type: integer
-    SequenceInput:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Sequence name or identifier
-        type:
-          type: string
-          enum:
-          - dna
-          - rna
-          - protein
-          - chemical
-        sequence:
-          type: string
-          description: Raw sequence string
-        annotations:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              start:
-                type: integer
-              end:
-                type: integer
-              type:
-                type: string
-        metadata:
-          type: object
-          additionalProperties: true
-      required:
-      - name
-      - type
-      - sequence
     ErrorResponse:
       type: object
       properties:
@@ -269,6 +250,25 @@ components:
         code:
           type: integer
           description: Error code
+  responses:
+    Unauthorized:
+      description: API key missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters or body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
