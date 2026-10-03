@@ -215,41 +215,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    LabsheetRowInput:
-      type: object
-      description: Input for creating or updating a labsheet row
-      properties:
-        barcode:
-          type: string
-          description: Optional barcode for the row
-        data:
-          type: object
-          description: Column values as key-value pairs
-          additionalProperties: true
-      required:
-      - data
-    LabsheetRow:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique row identifier
-        labsheetId:
-          type: string
-          description: Parent labsheet identifier
-        barcode:
-          type: string
-          description: Barcode associated with this row
-        data:
-          type: object
-          description: Column values as key-value pairs
-          additionalProperties: true
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
     Labsheet:
       type: object
       properties:
@@ -276,19 +241,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-    LabsheetRowsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LabsheetRow'
-        total:
-          type: integer
-        page:
-          type: integer
-        limit:
-          type: integer
     LabsheetColumn:
       type: object
       properties:
@@ -309,6 +261,40 @@ components:
         required:
           type: boolean
           description: Whether this column is required
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: integer
+          description: Error code
+    LabsheetRow:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique row identifier
+        labsheetId:
+          type: string
+          description: Parent labsheet identifier
+        barcode:
+          type: string
+          description: Barcode associated with this row
+        data:
+          type: object
+          description: Column values as key-value pairs
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
     LabsheetListResponse:
       type: object
       properties:
@@ -323,25 +309,33 @@ components:
           type: integer
         limit:
           type: integer
-    ErrorResponse:
+    LabsheetRowsResponse:
       type: object
       properties:
-        error:
-          type: string
-          description: Error type
-        message:
-          type: string
-          description: Human-readable error message
-        code:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LabsheetRow'
+        total:
           type: integer
-          description: Error code
+        page:
+          type: integer
+        limit:
+          type: integer
+    LabsheetRowInput:
+      type: object
+      description: Input for creating or updating a labsheet row
+      properties:
+        barcode:
+          type: string
+          description: Optional barcode for the row
+        data:
+          type: object
+          description: Column values as key-value pairs
+          additionalProperties: true
+      required:
+      - data
   responses:
-    Unauthorized:
-      description: API key missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: Invalid request parameters or body
       content:
@@ -350,6 +344,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: API key missing or invalid
       content:
         application/json:
           schema:

@@ -137,6 +137,31 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    SequenceListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sequence'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: integer
+          description: Error code
     SequenceInput:
       type: object
       properties:
@@ -173,19 +198,6 @@ components:
       - name
       - type
       - sequence
-    SequenceListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Sequence'
-        total:
-          type: integer
-        page:
-          type: integer
-        limit:
-          type: integer
     Sequence:
       type: object
       properties:
@@ -238,25 +250,7 @@ components:
         updatedAt:
           type: string
           format: date-time
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error type
-        message:
-          type: string
-          description: Human-readable error message
-        code:
-          type: integer
-          description: Error code
   responses:
-    Unauthorized:
-      description: API key missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: Invalid request parameters or body
       content:
@@ -265,6 +259,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: API key missing or invalid
       content:
         application/json:
           schema:

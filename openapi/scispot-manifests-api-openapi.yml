@@ -106,52 +106,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Manifest:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique manifest identifier
-        name:
-          type: string
-          description: Manifest name
-        type:
-          type: string
-          enum:
-          - plate
-          - box
-          - rack
-          - other
-          description: Container type
-        barcode:
-          type: string
-          description: Physical barcode for this container
-        dimensions:
-          type: object
-          description: Physical dimensions (rows, columns for plates)
-          properties:
-            rows:
-              type: integer
-            columns:
-              type: integer
-        items:
-          type: array
-          description: Contents of the container
-          items:
-            type: object
-            properties:
-              position:
-                type: string
-              sampleId:
-                type: string
-              barcode:
-                type: string
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
     ManifestInput:
       type: object
       properties:
@@ -203,13 +157,53 @@ components:
           type: integer
         limit:
           type: integer
+    Manifest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique manifest identifier
+        name:
+          type: string
+          description: Manifest name
+        type:
+          type: string
+          enum:
+          - plate
+          - box
+          - rack
+          - other
+          description: Container type
+        barcode:
+          type: string
+          description: Physical barcode for this container
+        dimensions:
+          type: object
+          description: Physical dimensions (rows, columns for plates)
+          properties:
+            rows:
+              type: integer
+            columns:
+              type: integer
+        items:
+          type: array
+          description: Contents of the container
+          items:
+            type: object
+            properties:
+              position:
+                type: string
+              sampleId:
+                type: string
+              barcode:
+                type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
   responses:
-    Unauthorized:
-      description: API key missing or invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: Invalid request parameters or body
       content:
@@ -218,6 +212,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Requested resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: API key missing or invalid
       content:
         application/json:
           schema:

@@ -118,26 +118,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Notebook:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique notebook identifier
-        name:
-          type: string
-          description: Notebook name
-        description:
-          type: string
-        entryCount:
-          type: integer
-          description: Number of entries in the notebook
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
     NotebookEntry:
       type: object
       properties:
@@ -211,6 +191,26 @@ components:
         code:
           type: integer
           description: Error code
+    Notebook:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique notebook identifier
+        name:
+          type: string
+          description: Notebook name
+        description:
+          type: string
+        entryCount:
+          type: integer
+          description: Number of entries in the notebook
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
     NotebookListResponse:
       type: object
       properties:
@@ -225,14 +225,14 @@ components:
         limit:
           type: integer
   responses:
-    Unauthorized:
-      description: API key missing or invalid
+    NotFound:
+      description: Requested resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Requested resource not found
+    Unauthorized:
+      description: API key missing or invalid
       content:
         application/json:
           schema:
