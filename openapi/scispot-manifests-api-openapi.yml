@@ -106,32 +106,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    ManifestInput:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Manifest name
-        type:
-          type: string
-          enum:
-          - plate
-          - box
-          - rack
-          - other
-        barcode:
-          type: string
-          description: Optional physical barcode
-        dimensions:
-          type: object
-          properties:
-            rows:
-              type: integer
-            columns:
-              type: integer
-      required:
-      - name
-      - type
     ErrorResponse:
       type: object
       properties:
@@ -144,19 +118,6 @@ components:
         code:
           type: integer
           description: Error code
-    ManifestListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Manifest'
-        total:
-          type: integer
-        page:
-          type: integer
-        limit:
-          type: integer
     Manifest:
       type: object
       properties:
@@ -203,13 +164,46 @@ components:
         updatedAt:
           type: string
           format: date-time
+    ManifestInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Manifest name
+        type:
+          type: string
+          enum:
+          - plate
+          - box
+          - rack
+          - other
+        barcode:
+          type: string
+          description: Optional physical barcode
+        dimensions:
+          type: object
+          properties:
+            rows:
+              type: integer
+            columns:
+              type: integer
+      required:
+      - name
+      - type
+    ManifestListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Manifest'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
   responses:
-    BadRequest:
-      description: Invalid request parameters or body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Requested resource not found
       content:
@@ -218,6 +212,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: API key missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters or body
       content:
         application/json:
           schema:

@@ -118,6 +118,71 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type
+        message:
+          type: string
+          description: Human-readable error message
+        code:
+          type: integer
+          description: Error code
+    NotebookEntryInput:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Entry title
+        type:
+          type: string
+          enum:
+          - experiment
+          - protocol
+          - observation
+          - note
+        content:
+          type: object
+          description: Structured entry content
+          additionalProperties: true
+      required:
+      - title
+      - type
+    Notebook:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique notebook identifier
+        name:
+          type: string
+          description: Notebook name
+        description:
+          type: string
+        entryCount:
+          type: integer
+          description: Number of entries in the notebook
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    NotebookListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notebook'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
     NotebookEntry:
       type: object
       properties:
@@ -159,80 +224,15 @@ components:
           type: integer
         limit:
           type: integer
-    NotebookEntryInput:
-      type: object
-      properties:
-        title:
-          type: string
-          description: Entry title
-        type:
-          type: string
-          enum:
-          - experiment
-          - protocol
-          - observation
-          - note
-        content:
-          type: object
-          description: Structured entry content
-          additionalProperties: true
-      required:
-      - title
-      - type
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error type
-        message:
-          type: string
-          description: Human-readable error message
-        code:
-          type: integer
-          description: Error code
-    Notebook:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique notebook identifier
-        name:
-          type: string
-          description: Notebook name
-        description:
-          type: string
-        entryCount:
-          type: integer
-          description: Number of entries in the notebook
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-    NotebookListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Notebook'
-        total:
-          type: integer
-        page:
-          type: integer
-        limit:
-          type: integer
   responses:
-    NotFound:
-      description: Requested resource not found
+    Unauthorized:
+      description: API key missing or invalid
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: API key missing or invalid
+    NotFound:
+      description: Requested resource not found
       content:
         application/json:
           schema:

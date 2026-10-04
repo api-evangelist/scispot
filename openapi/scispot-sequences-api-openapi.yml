@@ -137,6 +137,58 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Sequence:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique sequence identifier
+        name:
+          type: string
+          description: Sequence name or identifier
+        type:
+          type: string
+          enum:
+          - dna
+          - rna
+          - protein
+          - chemical
+          description: Sequence type
+        sequence:
+          type: string
+          description: Raw sequence string
+        length:
+          type: integer
+          description: Sequence length
+        annotations:
+          type: array
+          description: Sequence annotations and features
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              start:
+                type: integer
+              end:
+                type: integer
+              type:
+                type: string
+              strand:
+                type: string
+                enum:
+                - forward
+                - reverse
+        metadata:
+          type: object
+          description: Additional metadata
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
     SequenceListResponse:
       type: object
       properties:
@@ -198,65 +250,7 @@ components:
       - name
       - type
       - sequence
-    Sequence:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique sequence identifier
-        name:
-          type: string
-          description: Sequence name or identifier
-        type:
-          type: string
-          enum:
-          - dna
-          - rna
-          - protein
-          - chemical
-          description: Sequence type
-        sequence:
-          type: string
-          description: Raw sequence string
-        length:
-          type: integer
-          description: Sequence length
-        annotations:
-          type: array
-          description: Sequence annotations and features
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              start:
-                type: integer
-              end:
-                type: integer
-              type:
-                type: string
-              strand:
-                type: string
-                enum:
-                - forward
-                - reverse
-        metadata:
-          type: object
-          description: Additional metadata
-          additionalProperties: true
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
   responses:
-    BadRequest:
-      description: Invalid request parameters or body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Requested resource not found
       content:
@@ -265,6 +259,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: API key missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters or body
       content:
         application/json:
           schema:

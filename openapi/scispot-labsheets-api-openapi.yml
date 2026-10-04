@@ -241,26 +241,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-    LabsheetColumn:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Column name
-        type:
-          type: string
-          enum:
-          - text
-          - number
-          - date
-          - barcode
-          - lookup
-          - file
-          - formula
-          description: Column data type
-        required:
-          type: boolean
-          description: Whether this column is required
     ErrorResponse:
       type: object
       properties:
@@ -309,19 +289,26 @@ components:
           type: integer
         limit:
           type: integer
-    LabsheetRowsResponse:
+    LabsheetColumn:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LabsheetRow'
-        total:
-          type: integer
-        page:
-          type: integer
-        limit:
-          type: integer
+        name:
+          type: string
+          description: Column name
+        type:
+          type: string
+          enum:
+          - text
+          - number
+          - date
+          - barcode
+          - lookup
+          - file
+          - formula
+          description: Column data type
+        required:
+          type: boolean
+          description: Whether this column is required
     LabsheetRowInput:
       type: object
       description: Input for creating or updating a labsheet row
@@ -335,13 +322,20 @@ components:
           additionalProperties: true
       required:
       - data
+    LabsheetRowsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LabsheetRow'
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
   responses:
-    BadRequest:
-      description: Invalid request parameters or body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Requested resource not found
       content:
@@ -350,6 +344,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: API key missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters or body
       content:
         application/json:
           schema:
