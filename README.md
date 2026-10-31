@@ -1,4 +1,4 @@
-# Scispot (scispot)
+# Scispot
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,64 +66,162 @@
 
 Scispot is a cloud-native laboratory data platform and operating system for modern life science labs. It provides an API-first architecture combining Electronic Lab Notebook (ELN) and Laboratory Information Management System (LIMS) capabilities with over 250 pre-built instrument connectors and 7,000+ application integrations via its GLUE layer. Labs use Scispot to centralize and activate their data, automate experiment workflows, manage samples, sequences, and chemical structures programmatically, and integrate with clinical data standards including HL7 FHIR, HL7 v2, and ASTM protocols.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/scispot/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/scispot/refs/heads/main/apis.yml)
+**Areas:** Laboratory · Life Sciences · LIMS · ELN · Biotechnology · API-First · Scientific Data · Healthcare
 
-## Tags
+## Scispot on APIs.io
 
-- Laboratory
-- Life Science
-- LIMS
-- ELN
-- Biotech
-- API First
-- Scientific Data
-- Healthcare
+Everything profiled for Scispot is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/scispot/](https://apis.io/providers/scispot/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (5)
 
-- **Created:** 2026-05-02
-- **Modified:** 2026-05-19
+- [Scispot ELN API](https://apis.io/apis/scispot/scispot-eln-api/) — Electronic Lab Notebook protocols and experimental records
+- [Scispot Labsheets API](https://apis.io/apis/scispot/scispot-labsheets-api/) — LIMS-style structured data tables for registries, sample tracking, and assay data
+- [Scispot Manifests API](https://apis.io/apis/scispot/scispot-manifests-api/) — Physical container management including plates, boxes, and racks
+- [Scispot Samples API](https://apis.io/apis/scispot/scispot-samples-api/) — Sample lifecycle management including barcoding and metadata
+- [Scispot Sequences API](https://apis.io/apis/scispot/scispot-sequences-api/) — Biological sequence management for DNA, RNA, and protein sequences
 
-## APIs
+### Published properties
 
-### Scispot API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-The Scispot REST API provides programmatic access to all laboratory data management features including Labsheets (LIMS), Electronic Lab Notebooks (ELN), Manifests (plates, boxes, racks), and Sequences. Authenticated via personal API tokens, the API supports creating, reading, updating, and searching lab records, samples, barcodes, experimental results, and biological sequences. The API follows a flat, consistent schema designed for computational biology and dry-lab automation.
+#### Agentic access (1)
 
-- **Human URL:** [https://www.scispot.com/](https://www.scispot.com/)
-- **Base URL:** `https://api.scispot.com/v1`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Scispot Agentic Access](https://apis.io/agentic-access/scispot/scispot-agentic-access/)
 
-- Laboratory
-- LIMS
-- ELN
-- Life Science
-- Biotech
-- Samples
-- Sequences
+#### JSON Schema (2)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://docs.scispot.com/)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/scispot/refs/heads/main/openapi/scispot-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Developer  Portal](https://www.scispot.com/compbio)
-- [Spectral Rules](https://raw.githubusercontent.com/api-evangelist/scispot/refs/heads/main/rules/scispot-rules.yml)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/scispot/refs/heads/main/json-schema/scispot-labsheet-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [J S O N L D Context](https://raw.githubusercontent.com/api-evangelist/scispot/refs/heads/main/json-ld/scispot-context.jsonld)
-- [Vocabulary](https://raw.githubusercontent.com/api-evangelist/scispot/refs/heads/main/vocabulary/scispot-vocabulary.yml)
-- [Postman Collection](collections/scispot.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/scispot.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Scispot Labsheet](https://apis.io/schemas/scispot/scispot-labsheet/)
+- [Scispot Biological Sequence](https://apis.io/schemas/scispot/scispot-sequence/)
 
-## Common Properties
+#### JSON Structure (1)
 
-- [LinkedIn](https://www.linkedin.com/company/scispot)
+Data models expressed in JSON Structure.
+
+- [Scispot Labsheet Structure](https://apis.io/json-structure/scispot/scispot-labsheet-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Scispot Context](https://apis.io/jsonld/scispot/scispot-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Scispot Laboratory Platform Vocabulary](https://apis.io/vocabularies/scispot/scispot-vocabulary/)
+
+#### Examples (2)
+
+Example requests and responses.
+
+- [Scispot Add Labsheet Row Example](https://apis.io/examples/scispot/scispot-add-labsheet-row-example/)
+- [Scispot List Labsheets Example](https://apis.io/examples/scispot/scispot-list-labsheets-example/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [Scispot API](https://apis.io/collections/scispot/open-scispot/)
+- [Scispot ELN API](https://apis.io/collections/scispot/open-scispot-eln-api/)
+- [Scispot ELN Labsheets API](https://apis.io/collections/scispot/open-scispot-labsheets-api/)
+- [Scispot ELN Manifests API](https://apis.io/collections/scispot/open-scispot-manifests-api/)
+- [Scispot ELN Samples API](https://apis.io/collections/scispot/open-scispot-samples-api/)
+- [Scispot ELN Sequences API](https://apis.io/collections/scispot/open-scispot-sequences-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Scispot — jsonschema rules](https://apis.io/rules/scispot/scispot-jsonschema-spectral-rules/)
+- [Scispot API Rules](https://apis.io/rules/scispot/scispot-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Scispot Authentication](https://apis.io/security/scispot/scispot-authentication/)
+- [Scispot Domain Security](https://apis.io/security/scispot/scispot-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Scispot Plans Pricing](https://apis.io/plans/scispot/scispot-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Scispot Rate Limits](https://apis.io/rate-limits/scispot/scispot-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Scispot Finops](https://apis.io/finops/scispot/scispot-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.scispot.com/)
 - [Documentation](https://docs.scispot.com/)
-- [Developer  Portal](https://www.scispot.com/compbio)
-- [Integrations](https://www.scispot.com/integrations)
+- [Blog](https://www.scispot.com/blog)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 33.3** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 58.5 |
+| Contract governance | 27.3 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 33.3 |
+| Access clarity | 7.9 |
+
+**Agent readiness 20.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 13.3** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/scispot/](https://apis.io/providers/scispot/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Scispot: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/scispot/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
