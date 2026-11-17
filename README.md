@@ -72,13 +72,27 @@ Scispot is a cloud-native laboratory data platform and operating system for mode
 
 Everything profiled for Scispot is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/scispot/](https://apis.io/providers/scispot/)** — or go straight to one of the APIs or properties below.
 
-### APIs (5)
+### APIs (19)
 
-- [Scispot ELN API](https://apis.io/apis/scispot/scispot-eln-api/) — Electronic Lab Notebook protocols and experimental records
 - [Scispot Labsheets API](https://apis.io/apis/scispot/scispot-labsheets-api/) — LIMS-style structured data tables for registries, sample tracking, and assay data
 - [Scispot Manifests API](https://apis.io/apis/scispot/scispot-manifests-api/) — Physical container management including plates, boxes, and racks
 - [Scispot Samples API](https://apis.io/apis/scispot/scispot-samples-api/) — Sample lifecycle management including barcoding and metadata
 - [Scispot Sequences API](https://apis.io/apis/scispot/scispot-sequences-api/) — Biological sequence management for DNA, RNA, and protein sequences
+- [Scispot ELN API](https://apis.io/apis/scispot/scispot-eln-api/) — Electronic Lab Notebook protocols and experimental records
+- [Scispot Scispot API - ELN API - Create API](https://apis.io/apis/scispot/scispot-scispot-api-eln-api-create-api/) — The Scispot API - ELN API - Create API from Scispot — 5 operation(s) for scispot api - eln api - create.
+- [Scispot Scispot API - ELN API - Delete API](https://apis.io/apis/scispot/scispot-scispot-api-eln-api-delete-api/) — The Scispot API - ELN API - Delete API from Scispot — 3 operation(s) for scispot api - eln api - delete.
+- [Scispot Scispot API - ELN API - Find API](https://apis.io/apis/scispot/scispot-scispot-api-eln-api-find-api/) — The Scispot API - ELN API - Find API from Scispot — 5 operation(s) for scispot api - eln api - find.
+- [Scispot Scispot API - ELN API - List API](https://apis.io/apis/scispot/scispot-scispot-api-eln-api-list-api/) — The Scispot API - ELN API - List API from Scispot — 7 operation(s) for scispot api - eln api - list.
+- [Scispot Scispot API - ELN API - Permissions (Super Admin Only) API](https://apis.io/apis/scispot/scispot-scispot-api-eln-api-permissions-super-admin-only-api/) — ### Permissions Endpoint These endpoint allows you to list, add, remove useres from a private folder. #### **Notes**: - The owner of the API token must have…
+- [Scispot Scispot API - ELN API - Update API](https://apis.io/apis/scispot/scispot-scispot-api-eln-api-update-api/) — The Scispot API - ELN API - Update API from Scispot — 10 operation(s) for scispot api - eln api - update.
+- [Scispot Scispot API - FILES API](https://apis.io/apis/scispot/scispot-scispot-api-files-api-api/) — The Scispot API - FILES API API from Scispot — 3 operation(s) for scispot api - files api.
+- [Scispot Scispot API - LABFLOWS API](https://apis.io/apis/scispot/scispot-scispot-api-labflows-api-api/) — The Scispot API - LABFLOWS API API from Scispot — 3 operation(s) for scispot api - labflows api.
+- [Scispot Scispot API - LABSHEETS (LIMS) API](https://apis.io/apis/scispot/scispot-scispot-api-labsheets-lims-api-api/) — #### Overview The following API calls are for the manipulation of Labsheets data. #### Terminology - **Labsheet** - A labsheet is a table that can be used…
+- [Scispot Scispot API - LOCATIONS API](https://apis.io/apis/scispot/scispot-scispot-api-locations-api-api/) — The Scispot API - LOCATIONS API API from Scispot — 4 operation(s) for scispot api - locations api.
+- [Scispot Scispot API - MANIFESTS (PLATES, BOXES, RACKS) API](https://apis.io/apis/scispot/scispot-scispot-api-manifests-plates-boxes-racks-api-api/) — #### Overview The following API calls are for the manipulation of manifest data. #### Terminology - **Manifest** - A visual representation of a well plate.
+- [Scispot Scispot API - SEQUENCE API](https://apis.io/apis/scispot/scispot-scispot-api-sequence-api-api/) — #### Overview The following API calls are for the manipulation of DNA sequence data.
+- [Scispot Scispot API - WEBHOOK API](https://apis.io/apis/scispot/scispot-scispot-api-webhook-api-api/) — The Scispot API - WEBHOOK API API from Scispot — 1 operation(s) for scispot api - webhook api.
+- [Scispot Scispot API](https://apis.io/apis/scispot/scispot-scispot-api-api/) — The Scispot API API from Scispot — 89 operation(s) for scispot api.
 
 ### Published properties
 
@@ -140,12 +154,13 @@ Spectral rulesets for the provider's contracts.
 - [Scispot — jsonschema rules](https://apis.io/rules/scispot/scispot-jsonschema-spectral-rules/)
 - [Scispot API Rules](https://apis.io/rules/scispot/scispot-rules/)
 
-#### Security (2)
+#### Security (3)
 
 Authentication, trust centre, and vulnerability disclosure.
 
 - [Scispot Authentication](https://apis.io/security/scispot/scispot-authentication/)
 - [Scispot Domain Security](https://apis.io/security/scispot/scispot-domain-security/)
+- [Scispot Trust Center](https://apis.io/security/scispot/scispot-trust-center/)
 
 #### Plans and pricing (1)
 
@@ -171,11 +186,17 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 - [Website](https://www.scispot.com/)
 - [Documentation](https://docs.scispot.com/)
+- [Getting started](https://docs.scispot.com/quickstart)
+- [API reference](https://docs.scispot.com/api-reference/overview)
+- [Pricing](https://www.scispot.com/pricing)
+- [Changelog](https://www.scispot.com/release-notes/june-2023)
 - [Blog](https://www.scispot.com/blog)
+- [Compliance](https://www.scispot.com/compliance)
+- [GitHub](https://github.com/scispot)
 
 ## API Evangelist rating
 
-**Kin Score 33.3** — thin · rubric 0.24.0 · scored 2026-10-17
+**Kin Score 33.3** — thin · rubric 0.25.0 · scored 2026-10-23
 
 | Facet | Score |
 |---|---|
@@ -186,7 +207,7 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Developer ergonomics | 33.3 |
 | Access clarity | 7.9 |
 
-**Agent readiness 20.4** — agent-aware
+**Agent readiness 23.0** — agent-aware
 
 | Agent-readiness dimension | Result |
 |---|---|
@@ -209,6 +230,8 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Protected Resource Metadata | — |
 | Dynamic Client Registration | — |
 | Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
 
 **Regulatory alignment 13.3** — Health
 
